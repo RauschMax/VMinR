@@ -9,3 +9,4 @@ Description: The package contains a set of functions which are required in a Val
 License: file LICENSE
 Encoding: UTF-8
 LazyData: true
+RoxygenNote: 6.0.1

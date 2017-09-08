@@ -7,10 +7,8 @@ VD.computeShares <- function(design, utils, nlev, weight = NULL, FC = FALSE, dum
   if (is.null(weight)) weight = rep(1, dim(utils)[1])
 
   xBeta <- t(dummy_design %*% t(utils))
-  head(xBeta)
 
   exp_xbeta <- exp(xBeta)
-  head(exp_xbeta)
 
   if (FC) {
     FC_func <- function(x) {
@@ -25,6 +23,6 @@ VD.computeShares <- function(design, utils, nlev, weight = NULL, FC = FALSE, dum
     probabilities <- exp_xbeta / rowSums(exp_xbeta)
   }
 
-  return(list(meanShares = apply(probabilities, 2, weighted.mean, w = weight),
+  return(list(meanShares = apply(probabilities, 2, stats::weighted.mean, w = weight),
               indShares = probabilities))
 }

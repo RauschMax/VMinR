@@ -1,0 +1,44 @@
+\name{get_DriverData}
+\alias{get_DriverData}
+\title{Import ValueDriver data and definitions}
+\usage{
+get_DriverData(dat_file = NULL, def_file = NULL, nlev = NULL, none = TRUE)
+}
+\description{
+Imports the dat/def files for a ValueDriver study and extracts the relevant information.
+}
+\arguments{
+\item{dat_file}{A string value with the path to the DAT file to import.}
+
+\item{def_file}{A string value with the path to the DEF file to import.}
+
+\item{nlev}{A vector indicating the number of levels per attribute}
+
+\item{none}{A boolean variable indicating whether NONE is included in the dat file or not - default = \code{TRUE}}
+}
+\value{
+A list including elements
+\item{dat}{A matrix of the imported dat-file}
+\item{utils_mat}{A matrix including the utilities from the dat file}
+\item{utils_list}{A list including the individual utilities from the dat file. One list element per respondent}
+\item{seg}{A matrix containing the segment data}
+\item{weight}{A vector containing the weight per respondent}
+\item{def}{A list containing the values from \code{\link{VD.read_def}}}
+\item{nlev}{A vector containing the number of levels per attribute.}
+\item{nseg}{A variable indicating the number of segments in the dat file}
+\item{ID}{A vector containing the ID per respondent}
+\item{RLH}{A vector containing the root likelihood (RLH) from the HB estiomation per respondent.}
+\item{check1}{check if the extracted info is consistent with the dat file (number of segments)}
+\item{check2}{check if the extracted info is consistent with the dat file (number of total levels)}
+}
+\author{Maximilian Rausch}
+\examples{
+\dontrun{
+VDdata <- get_DriverData(dat_file = "TEST_timtim_gew.dat",
+                         def_file = "TEST_timtim_gew.def",
+                         nlev = c(4, 6, 4, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 5),
+                         none = TRUE)
+str(VDdata)
+}
+}
+
