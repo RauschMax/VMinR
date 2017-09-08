@@ -27,10 +27,15 @@ A list including elements
 }
 \author{Maximilian Rausch}
 \examples{
-sim_BaseR <- VD.computeShares(design = as.matrix(basecase_dummy),
-                              utils = VDdata$utils_mat,
-                              nlev = VDdata$nlev,
-                              weight = VDdata$weight,
+utils_mat <- VMinR$VDdata$utils_mat
+nlev <- VMinR$VDdata$nlev
+weight <- VMinR$VDdata$weight
+basecase <- as.matrix(VMinR$basecase_dummy_2)
+
+sim_BaseR <- VD.computeShares(design = basecase,
+                              utils = utils_mat,
+                              nlev = nlev,
+                              weight = weight,
                               FC = FALSE)
 
 round(sim_BaseR$meanShares, 3)

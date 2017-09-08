@@ -21,6 +21,9 @@ A data.frame of the recoded dummy design
 }
 \author{Maximilian Rausch}
 \examples{
+nlev <- VMinR$VDdata$nlev
+basecase <- VMinR$basecase
+
 basecase_dummy_2 <- as.matrix(cbind(convertSSItoDesign(basecase, nlev = nlev), 0))
 }
 
