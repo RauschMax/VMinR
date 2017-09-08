@@ -1,11 +1,11 @@
 Package: VMinR
 Type: Package
-Title: What the Package Does (Title Case)
+Title: The package contains a set of functions which are required in a ValueManager study
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Maximilian Rausch
+Maintainer: Maximilian Rausch <maximilian.rausch@tns-infratest.com>
+Description: The package contains a set of functions which are required in a ValueManager study.
+    Importing data, simulating shares, etc.
+License: file LICENSE
 Encoding: UTF-8
 LazyData: true
