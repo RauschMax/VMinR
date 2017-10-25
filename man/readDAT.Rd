@@ -1,0 +1,34 @@
+\name{readDAT}
+\alias{readDAT}
+\title{Read Sawtooth DAT file}
+\usage{
+readDAT(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE, ID_var = "r",
+        out_unique = NULL, out_COMP = NULL, progress = TRUE)
+}
+\description{
+Reads the Sawtooth DAT file
+}
+\arguments{
+\item{inFILE}{A string with the file name to be imported incl. path (if necessary)}
+\item{exportCOMPLETES}{A boolean variable indicating if a dat file with the COMPLETE cases should be exported. default \code{FALSE}}
+\item{exportUNIQUE}{A boolean variable indicating if a dat file with the UNIQUE cases should be exported. default \code{TRUE}}
+\item{ID_var}{A string variable giving the variable name of the ID variable. default = "r"}
+\item{out_unique}{A string variable in case the outfile should be specifically labeled. If \code{NULL} label is set to fileIN_UNIQUE.dat}
+\item{out_COMP}{A string variable in case the outfile should be specifically labeled. If \code{NULL} label is set to fileIN_Complete.dat}
+\item{progress}{A boolean variable indicating if progress bar should be displayed - default \code{TRUE}; set to FALSE if less than 50 cases to read.}
+}
+\value{
+A list including elements
+\item{inFILE}{A string which returns the input file name}
+\item{dat_file}{A character-vector containing the raw imported dat-file}
+\item{dat_table}{A data.frame containing the information from the dat file}
+\item{dat_completes}{A character-vector containing the raw dat-file including status = "terminate" only}
+\item{dat_unique}{A character-vector containing the raw dat-file with unique and complete cases only}
+}
+\author{Maximilian Rausch - Maximilian.Rausch@tns-infratest.com}
+\examples{
+\dontrun{
+dat_file <- readDAT("example.dat")
+}
+}
+
