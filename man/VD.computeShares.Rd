@@ -18,7 +18,7 @@ Calculates the shares (first choice or preference share) for a ValueDriver like 
 
 \item{FC}{A boolean variable indicating if first choice simulation should be used (\code{FALSE} indicates preference share simulation) - default \code{TRUE}}
 
-\item{dummy}{A boolean variable indicating if the design file needs to be dummy-coded using \code{\link{convertSSItoDesign}}. - default \{TRUE}
+\item{dummy}{A boolean variable indicating if the design file needs to be dummy-coded using \code{\link{convertSSItoDesign}}. - default \code{TRUE}}
 }
 \value{
 A list including elements
