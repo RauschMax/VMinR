@@ -25,7 +25,7 @@ A list including elements
 \item{meanShares}{aggregated shares accross all respondents}
 \item{indShares}{individual shares for each respondent}
 }
-\author{Maximilian Rausch}
+\author{Maximilian Rausch - Maximilian.Rausch@tns-infratest.com}
 \examples{
 utils_mat <- VMinR$VDdata$utils_mat
 nlev <- VMinR$VDdata$nlev

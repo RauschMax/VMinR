@@ -31,7 +31,7 @@ A list including elements
 \item{check1}{check if the extracted info is consistent with the dat file (number of segments)}
 \item{check2}{check if the extracted info is consistent with the dat file (number of total levels)}
 }
-\author{Maximilian Rausch}
+\author{Maximilian Rausch - Maximilian.Rausch@tns-infratest.com}
 \examples{
 \dontrun{
 VDdata <- get_DriverData(dat_file = "TEST_timtim_gew.dat",

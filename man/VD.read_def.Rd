@@ -21,7 +21,7 @@ A list including elements
 \item{nseg}{A variable returning the number of segments}
 \item{file_in}{A string value with the path to the DEF file which was passed to the function.}
 }
-\author{Maximilian Rausch}
+\author{Maximilian Rausch - Maximilian.Rausch@tns-infratest.com}
 \examples{
 \dontrun{
 VD.read_def(file = "data/TEST_timtim_5seg_2_gew_gew2.def",

@@ -19,7 +19,7 @@ Convert SSI like design file to dummy coding.
 \value{
 A data.frame of the recoded dummy design
 }
-\author{Maximilian Rausch}
+\author{Maximilian Rausch - Maximilian.Rausch@tns-infratest.com}
 \examples{
 nlev <- VMinR$VDdata$nlev
 basecase <- VMinR$basecase
