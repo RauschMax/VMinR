@@ -38,6 +38,11 @@ For details please refer to `VMinR.pdf` in  [VMinR_test/doc](https://kantarware.
 * readDAT
 * writeCHO
 
+### Concept Optimization (ISBC)
+* calibEXE
+* summary_calibEXE
+* prodAcceptance
+
 ### other functions
 * covertSSItoDesign
 * correlation_HeatMap
