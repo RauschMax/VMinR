@@ -21,7 +21,7 @@ The package currently contains basic import and simulation functions for ValueDr
 It also contains some basic import functions for the most often used Sawtooth files. 
 Apart from that functions to create a heatmap for ValuePricer studies is included.
 
-For details please refer to 'VMinR.pdf' in  [VMinR_test/doc](https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR_Test?path=%2Fdoc)
+For details please refer to `VMinR.pdf` in  [VMinR_test/doc](https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR_Test?path=%2Fdoc)
 
 ### ValueDriver
 * get_DriverData
