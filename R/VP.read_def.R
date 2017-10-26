@@ -1,5 +1,24 @@
 # this function reads a ValueDriver def-file and extracts to relevant information
 
+
+
+#' Read ValuePricer definitions file
+#' 
+#' Reads the ValuePricer def file extracting the labels and prices
+#' 
+#' 
+#' @param file A string value with the path to the DEF file to import.
+#' @return A list including elements \item{brands}{A vector including the SKU
+#' labels} \item{prices}{A matrix (nSKUs x nPrices) including the prices per
+#' SKU}
+#' @author Maximilian Rausch - Maximilian.Rausch@@tns-infratest.com
+#' @examples
+#' 
+#' \dontrun{
+#' VP.read_def(file = "data/TEST_FILE.def")
+#' }
+#' 
+#' @export VP.read_def
 VP.read_def <- function(file) {
   def <- scan(file, what="character", sep="\n", strip.white=T)
   start_brand <- which(def == "Brand") + 1

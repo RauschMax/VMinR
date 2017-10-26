@@ -1,5 +1,57 @@
 # function computes shares for a ValuePricer study - First Choice and Preference Share
 
+
+
+#' Compute ValuePricer shares
+#' 
+#' Calculates the shares (first choice or preference share) for a ValuePricer
+#' like study.
+#' 
+#' 
+#' @param utils A matrix containing the utilities
+#' @param prices A matrix containing the prices used in the interview
+#' @param simPrices A vector containing the prices to be used in the simulated
+#' scenario
+#' @param simSKUs A vector containing indicies of the SKUs to be used in the
+#' simulated scenario
+#' @param nlev An vector indicating the number of levels per attribute
+#' @param weight A vector with the weights (one per respondent). Will be set to
+#' 1 if \code{NULL}
+#' @param none A boolean variable indicating if NONE should be used in the
+#' simulated scenario. - default \code{FALSE}
+#' @param iaw A matrix of individual awareness factors corresponding to those
+#' in the ValuePricer tool. All are set to 1 if \code{NULL}. In case both
+#' individual awareness and distribution factors need to be used the respective
+#' matrices need to be multiplied before passing to this function.
+#' @param FC A boolean variable indicating if first choice simulation should be
+#' used (\code{FALSE} indicates preference share simulation) - default
+#' \code{TRUE}
+#' @return A list including elements \item{ind_sim}{individual shares for each
+#' respondent} \item{Xbeta}{\code{X * beta} matrix used to calculate the shares
+#' (utility sums).} \item{simPrices}{respective input object passed through}
+#' \item{simSKUs}{respective input object passed through}
+#' \item{prices}{respective input object passed through} \item{iaw}{respective
+#' input object passed through} \item{none}{respective input object passed
+#' through} \item{weight}{respective input object passed through}
+#' \item{simShares}{aggregated shares accross all respondents}
+#' @author Maximilian Rausch - Maximilian.Rausch@@tns-infratest.com
+#' @examples
+#' 
+#' beer_def <- beer_data$def
+#' 
+#' sim_Beer <- VP.computeShares(beer_data$utils_mat,
+#'                              beer_def$prices,
+#'                              beer_def$prices[,3],
+#'                              simSKUs = NULL,
+#'                              nlev = beer_data$nlev,
+#'                              weight = beer_data$weight,
+#'                              none = FALSE,
+#'                              iaw = NULL,
+#'                              FC = FALSE)
+#' 
+#' round(sim_Beer$simShares, 3)
+#' 
+#' @export VP.computeShares
 VP.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev, weight = NULL, none = FALSE, iaw = NULL, FC = FALSE) {
   if(is.null(simSKUs)) ifelse(length(simPrices) == dim(prices)[1], simSKUs <- seq_along(simPrices), stop("We need to know the SKUs to be simulated please!"))
 

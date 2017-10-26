@@ -1,5 +1,41 @@
 # function reads a dat-file
 
+
+
+#' Read Sawtooth DAT file
+#' 
+#' Reads the Sawtooth DAT file
+#' 
+#' 
+#' @param inFILE A string with the file name to be imported incl. path (if
+#' necessary)
+#' @param exportCOMPLETES A boolean variable indicating if a dat file with the
+#' COMPLETE cases should be exported. default \code{FALSE}
+#' @param exportUNIQUE A boolean variable indicating if a dat file with the
+#' UNIQUE cases should be exported. default \code{TRUE}
+#' @param ID_var A string variable giving the variable name of the ID variable.
+#' default = "r"
+#' @param out_unique A string variable in case the outfile should be
+#' specifically labeled. If \code{NULL} label is set to fileIN_UNIQUE.dat
+#' @param out_COMP A string variable in case the outfile should be specifically
+#' labeled. If \code{NULL} label is set to fileIN_Complete.dat
+#' @param progress A boolean variable indicating if progress bar should be
+#' displayed - default \code{TRUE}; set to FALSE if less than 50 cases to read.
+#' @return A list including elements \item{inFILE}{A string which returns the
+#' input file name} \item{dat_file}{A character-vector containing the raw
+#' imported dat-file} \item{dat_table}{A data.frame containing the information
+#' from the dat file} \item{dat_completes}{A character-vector containing the
+#' raw dat-file including status = "terminate" only} \item{dat_unique}{A
+#' character-vector containing the raw dat-file with unique and complete cases
+#' only}
+#' @author Maximilian Rausch - Maximilian.Rausch@@tns-infratest.com
+#' @examples
+#' 
+#' \dontrun{
+#' dat_file <- readDAT("example.dat")
+#' }
+#' 
+#' @export readDAT
 readDAT <- function(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE, ID_var = "r", out_unique = NULL, out_COMP = NULL, progress = TRUE) {
 
   if (is.null(out_unique)) out_unique <- paste0(strsplit(inFILE, split = "[.]")[[1]][1], "_UNIQUE.dat")
