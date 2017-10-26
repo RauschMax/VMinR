@@ -1,0 +1,150 @@
+#' Calib EXE
+#'
+#' Calibrates the utilities based on purchase intention questions (calibEXE)
+#'
+#'
+#' @param BWconcepts A matrix/data.frame containing the best and worst concepts per respondents.
+#' @param PI A matrix containing the answer to the purchase intention questions
+#' for the best/worst concepts.
+#' @param utils A matrix containing the utilities per respondent of the model.
+#' @param cut An integer value indicating the maximal value for utilities after calibration.
+#' @param nlev A vector indicating the number of levels per attribute
+#' @return A list including 13 elements
+#' \item{BWconcepts}{A matrix/data.frame containing the best and worst concepts per respondents
+#' which have been passed to the function}
+#' \item{utils_calib}{A matrix containing the CALIBRATED utilities per respondent of the model.}
+#' \item{utils}{A matrix containing the original utilities per respondent of the model.}
+#' \item{check_order_BW}{A vector containing boolean values indicating if the utilities
+#' for the best concept have been greater than the ones of the worst concept.}
+#' \item{check_order_PI}{A vector containing boolean values indicating if the purchase intentions
+#' for the best concept have been greater than the ones of the worst concept.}
+#' \item{utl_sum}{A matrix containing the corrected utility sums for the best and worst concept.
+#' Values in the wrong order are set to be equal.}
+#' \item{PurchaseInt}{A matrix containing the corrected purchase intentions for the best
+#' and worst concept. (1 = .95, 2 = .5, 3 = .3, 4 = .15, 5 = .05)
+#' Values in the wrong order are set to be equal.}
+#' \item{utl_sum_ORIG}{A matrix containing the original (uncorrected) utility sums for
+#' the best and worst concept.}
+#' \item{PurchaseInt_ORIG}{A matrix containing the original (uncorrected) purchase intentions for the best
+#' and worst concept.}
+#' \item{a}{The slope of the linear function used for the calibration.}
+#' \item{b}{The intercept of the linear function used for the calibration.}
+#' \item{nlev}{A vector indicating the number of levels per attribute}
+#' \item{cut}{An integer indicating the cutoff value used for the maximal
+#' value for utilities after calibration.}
+#' @author Maximilian Rausch - Maximilian.Rausch@tns-infratest.com
+#' @examples
+#'
+#' \dontrun{
+#' calibData <- calibEXE(BWconcepts = BWconcepts[, c(paste0("B_Att_", sequence(natt)),
+#'                                                   paste0("W_Att_", sequence(natt)))],
+#' PI = BWconcepts[, c("PI_B", "PI_W")],
+#' utils = dat_input$utils_mat,
+#' cut = 42, nlev = nlev)
+#' }
+#'
+#' @export prodAcceptance
+
+
+
+calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev = NULL) {
+  # some checks ----
+  if (is.null(BWconcepts)) stop("Please provide best and worst concepts!")
+  if (is.null(PI)) stop("Please provide purchase intention for best and worst concepts!")
+  if (is.null(utils)) stop("Please provide utilities!")
+  if (is.null(nlev)) stop("Please provide vector of number of levels!")
+
+  if (nrow(BWconcepts) != nrow(PI)) stop("BWconcepts and PI need to have the same number of cases/rows")
+  if (nrow(BWconcepts) != nrow(utils)) stop("BWconcepts and utilities need to have the same number of cases/rows")
+  if (nrow(PI) != nrow(utils)) stop("PI and utilities need to have the same number of cases/rows")
+
+  natt <- length(nlev)
+
+  # utility sums best/worst concepts ----
+  best_dummy <- as.matrix(cbind(convertSSItoDesign(BWconcepts[, 1:(ncol(BWconcepts) / 2)], nlev = nlev), 0))
+  worst_dummy <- as.matrix(cbind(convertSSItoDesign(BWconcepts[, (1 + ncol(BWconcepts) / 2):ncol(BWconcepts)],
+                                                    nlev = nlev), 0))
+
+  # utl sums - X%*%beta ----
+  utl_sum_best <- rowSums(utils * best_dummy)
+  utl_sum_worst <- rowSums(utils * worst_dummy)
+
+  utl_sum <- cbind(utl_sum_best, utl_sum_worst)
+  colnames(utl_sum) <- c("best", "worst")
+
+  # check if best is better than worst
+  # Set utl_sum_worst == utl_sum_best if WRONG ORDER
+  check_order <- apply(utl_sum, 1, function(x) {x[1] > x[2]})
+  utl_sum_ORIG <- utl_sum
+  utl_sum[!check_order, 2] <- utl_sum[!check_order, 1]
+
+  # rescale 5 point scale to %-values ----
+  #
+  # 1 --> 0.95  definitly would buy
+  # 2 --> 0.50
+  # 3 --> 0.30
+  # 4 --> 0.15
+  # 5 --> 0.05  definitely would not buy
+
+  PurchaseInt_best <- unlist(lapply(as.integer(PI[, 1]), switch, .95, .5, .3, .15, .05))
+  PurchaseInt_worst <- unlist(lapply(as.integer(PI[, 2]), switch, .95, .5, .3, .15, .05))
+
+  check_recode <- cbind(PI[, 1], PurchaseInt_best,
+                        PI[, 2], PurchaseInt_worst)
+  PurchaseInt <- check_recode[, c(2,4)]
+  colnames(PurchaseInt) <- c("best", "worst")
+
+  # check if best is rated better than worst
+  # Set PI_worst == PI_best if WRONG ORDER
+  check_order_PI <- apply(PurchaseInt, 1, function(x) {x[1] > x[2]})
+  PurchaseInt_ORIG <- PurchaseInt
+  PurchaseInt[!check_order_PI, 2] <- PurchaseInt[!check_order_PI, 1]
+
+  # logit transformation ----
+  logitPI_best <- log(PurchaseInt_best / (1 - PurchaseInt_best))
+  logitPI_worst <- log(PurchaseInt_worst / (1 - PurchaseInt_worst))
+
+  logit_PurchaseInt <- log(PurchaseInt / (1 - PurchaseInt))
+
+  # linear regression - purchase intention vs. utility sums ----
+  # y = a + b * x; utl_sum = a + b * PI
+
+  # b = sum((x - mean(x)) * (y - mean(y))) / sum((x - mean(x))^2) ----
+  b <- apply((utl_sum - apply(utl_sum, 1, mean)) *
+               (PurchaseInt - apply(PurchaseInt, 1, mean)), 1, sum) /
+    apply(((PurchaseInt - apply(PurchaseInt, 1, mean))^2), 1, sum)
+
+  # set missings to 0 - missings appear when worst concept == best concept
+  b[is.na(b)] <- 0
+  b
+
+  # a = mean(y) - b * mean(x) ----
+  a <- apply(utl_sum, 1, mean) - b * apply(PurchaseInt, 1, mean)
+
+  # CALIBRATION STEP ----
+  # y = b * x + a / natt
+
+  # calibrated utilities - calib.exe ----
+  utils_calib <- utils * b + a / natt
+
+  # set values > abs(42) to 42
+  if (!is.null(cut)) {
+    utils_calib[which(abs(utils_calib) > 42, arr.ind = TRUE)] <-
+      42 * sign(utils_calib[which(abs(utils_calib) > 42, arr.ind = TRUE)])
+  }
+
+  invisible(list(BWconcepts = BWconcepts,
+                 utils_calib = utils_calib,
+                 utils = utils,
+                 check_order_BW = check_order,
+                 check_order_PI = check_order_PI,
+                 utl_sum = utl_sum,
+                 PurchaseInt = PurchaseInt,
+                 utl_sum_ORIG = utl_sum_ORIG,
+                 PurchaseInt_ORIG = PurchaseInt_ORIG,
+                 a = a,
+                 b = b,
+                 nlev = nlev,
+                 cut = cut))
+
+}
