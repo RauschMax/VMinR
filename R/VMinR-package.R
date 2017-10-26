@@ -8,7 +8,7 @@
 #' 
 #' @name beer_data
 #' @docType data
-#' @format A list with the data of teh beer study.  \describe{ \item{dat}{A
+#' @format A list with the data of the beer study.  \describe{ \item{dat}{A
 #' matrix of the imported dat-file} \item{utils_mat}{A matrix including the
 #' utilities from the dat file} \item{utils_list}{A list including the
 #' individual utilities from the dat file. One list element per respondent}
