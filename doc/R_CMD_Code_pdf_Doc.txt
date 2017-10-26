@@ -1,0 +1,2 @@
+cd C:\Users\rm111389\Documents\R\R-3.4.1\bin
+R CMD Rd2pdf C:\03_RanD\Analyse_R\11_Git\VMinR
