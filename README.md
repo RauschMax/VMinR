@@ -2,9 +2,22 @@
 The aim of `VMinR` is to provide a set of usfull R-functions to ValueManager modellers.
 
 ## Installation
+If you want to install the BeastDevTools package, then you will need the following packages:
+
+* devtools
+* git2r
+
+The only other thing you will need to install packages from TNS-AnalyticsDE-VMTools are kantarware generated git credentials. If you haven't already generated these from another project then click here. Once you are on this screen, you will see a "Clone" button towards the top-right corner of the screen. Click on the button, and you will see this pop-up:
+
+![](doc/gitcred.png)
+
+
+Click on "Generate Git Credentials" and then enter a username and password (it doesn't have to be the same as your Kantar credentials). At this point you should have everything you need to install packages off TNS-AnalyticsDE-VMTools
+
+From there, run the following script:
 
 ```
-library(devtools)
+install.packages(c('devtools', 'git2r'))
 remove.packages("VMinR")
 
 creds <- git2r::cred_user_pass("USER NAME", "PASSWORD")
