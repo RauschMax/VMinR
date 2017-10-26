@@ -5,6 +5,7 @@ The aim of `VMinR` is to provide a set of usfull R-functions to ValueManager mod
 
 ```
 library(devtools)
+remove.packages("VMinR")
 
 creds <- git2r::cred_user_pass("USER NAME", "PASSWORD")
 
