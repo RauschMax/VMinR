@@ -16,7 +16,7 @@ Once you are on this screen, you will see a "Clone" button towards the top-right
 
 Click on "Generate Git Credentials" and then enter a username and password (it doesn't have to be the same as your Kantar credentials). At this point you should have everything you need to install packages off TNS-AnalyticsDE-VMTools
 
-From there, run the following script:
+From there: Go to R (e.g. using RStudio) and run the following script:
 
 ```
 install.packages(c('devtools', 'git2r'))
