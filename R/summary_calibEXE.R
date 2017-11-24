@@ -23,7 +23,8 @@ summary_calibEXE <- function(calibData = calibData, outfile = "summary.txt", inf
   best_dummy <- as.matrix(convertSSItoDesign(calibData$BWconcepts[, 1:(ncol(calibData$BWconcepts) / 2)],
                                              nlev = calibData$nlev))
   worst_dummy <- as.matrix(convertSSItoDesign(
-    calibData$BWconcepts[, (1 + ncol(calibData$BWconcepts) / 2):ncol(calibData$BWconcepts)], nlev = calibData$nlev))
+    calibData$BWconcepts[, (1 + ncol(calibData$BWconcepts) / 2):ncol(calibData$BWconcepts)],
+    nlev = calibData$nlev))
 
   ProdAcc_best <- exp(rowSums(best_dummy * calibData$utils[,-ncol(calibData$utils)])) /
     (1 + exp(rowSums(best_dummy * calibData$utils[,-ncol(calibData$utils)])))
@@ -40,28 +41,35 @@ summary_calibEXE <- function(calibData = calibData, outfile = "summary.txt", inf
   cat("SUMMARY \n", file = "summary.txt")
   cat(infile, "\n\n", file = outfile, append = TRUE)
 
+  order1 <- table(factor(calibData$check_order_BW, levels = c("FALSE", "TRUE")))
+
   cat("Utility sum in wrong order (worst > best): \n", file = outfile, append = TRUE)
-  if (prop.table(table(calibData$check_order_BW))[1] > .10) {
+  if (prop.table(order1)[1] > .10) {
     cat(" !!! WATCH OUT! More than 10% in wrong order !!! \n", file = outfile, append = TRUE)
   }
-  cat("WRONG order: ", table(calibData$check_order_BW)[1], "\n", file = outfile, append = TRUE)
-  cat("RIGHT order: ", table(calibData$check_order_BW)[2], "\n\n", file = outfile, append = TRUE)
+  cat("WRONG order: ", order1[1], "\n", file = outfile, append = TRUE)
+  cat("RIGHT order: ", order1[2], "\n\n", file = outfile, append = TRUE)
 
   cat("Purchase intention in wrong order (worst >= best): \n", file = outfile, append = TRUE)
   # if (prop.table(table(calibData$check_order_PI))[1] > .10) {
   #   cat(" !!! WATCH OUT! More than 10% in wrong order !!! \n", file = outfile, append = TRUE)
   # }
-  cat("WRONG order: ", table(calibData$check_order_PI)[1], "\n", file = outfile, append = TRUE)
-  cat("RIGHT order: ", table(calibData$check_order_PI)[2], "\n\n", file = outfile, append = TRUE)
+  order2 <- table(factor(calibData$check_order_PI, levels = c("FALSE", "TRUE")))
+
+  cat("WRONG order: ", order2[1], "\n", file = outfile, append = TRUE)
+  cat("RIGHT order: ", order2[2], "\n\n", file = outfile, append = TRUE)
+
+  order3 <- table(factor(!(calibData$PurchaseInt_ORIG[, 1] < calibData$PurchaseInt_ORIG[, 2]),
+                  levels = c("FALSE", "TRUE")))
 
   cat("Purchase intention in wrong order (worst > best): \n", file = outfile, append = TRUE)
-  if (prop.table(table(!(calibData$PurchaseInt_ORIG[, 1] < calibData$PurchaseInt_ORIG[, 2])))[1] > .10) {
+  if (prop.table(order3)[1] > .10) {
     cat(" !!! WATCH OUT! More than 10% in wrong order !!! \n", file = outfile, append = TRUE)
   }
-  cat("WRONG order: ", table(!(calibData$PurchaseInt_ORIG[, 1] < calibData$PurchaseInt_ORIG[, 2]))[1], "\n",
-      file = outfile, append = TRUE)
-  cat("RIGHT order: ", table(!(calibData$PurchaseInt_ORIG[, 1] < calibData$PurchaseInt_ORIG[, 2]))[2], "\n\n",
-      file = outfile, append = TRUE)
+  cat("WRONG order: ", order3[1],
+      "\n", file = outfile, append = TRUE)
+  cat("RIGHT order: ", order3[2],
+      "\n\n", file = outfile, append = TRUE)
 
   cat("See csv outputs for details.\n", file = outfile, append = TRUE)
   cat("----------------------------------------------------------------------\n\n",
