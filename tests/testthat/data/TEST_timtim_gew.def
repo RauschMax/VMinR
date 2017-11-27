@@ -1,0 +1,129 @@
+[Utilities]
+Size / Shape
+  Small - slim
+  Small - rounded
+  Medium - slim
+  Medium - rounded
+Brand
+  Tim
+  Boris
+  Nelson
+  Sonia
+  Marco
+  Bill
+Map coverage
+  Own country
+  Own country + major roads of Europe
+  Europe
+  Europe, US and Canada
+Handsfree calling
+ Yes
+ No
+Traffic info
+  Yes
+  No
+Speed camera database
+  Yes
+  No
+Touchscreen
+  Yes
+  No
+Additional route info
+  Yes
+  No
+Music Player
+  Yes
+  No
+Picture viewing
+ Yes
+ No
+Remote control
+ Yes
+ No
+Price Tim
+ 245.- {245}
+ 275.- {275}
+ 305.- {305}
+ 335.- {335}
+ 365.- {365}
+Price Boris
+ 175.- {175}
+ 205.- {205}
+ 235.- {235}
+ 265.- {265}
+ 295.- {295}
+Price Nelson
+ 105.- {105}
+ 125.- {125}
+ 145.- {145}
+ 165.- {165}
+ 185.- {185}
+Price Sonia
+ 150.- {150}
+ 175.- {175}
+ 200.- {200}
+ 225.- {225}
+ 250.- {250}
+Price Marco
+ 75.-  {75}
+ 95.-  {95}
+ 115.- {115}
+ 135.- {135}
+ 155.- {155}
+Price Bill
+ 195.- {195}
+ 220.- {220}
+ 245.- {245}
+ 280.- {280}
+ 305.- {305}
+[PURCHASE INTENTION]
+[Segmente]
+Gender
+ male
+ female
+Price-oriented
+ yes
+ no
+Brand-oriented
+ Tim
+ Sonia
+ Marco
+ Boris
+ Bill
+ Nelson
+ not brand oriented
+Map-oriented
+ yes
+ no
+Feature-oriented
+ yes
+ no
+Benefit Segments
+ Brand/Price Boris
+ Features
+ Brand
+ Map-coverage
+ Brand/Price Sonia
+ Brand/Price Nelson
+ Brand/Size
+ Brand/Map/Features
+Latent Class Segments
+ Map/Features
+ Bill/Handsfree
+ Brand/Price Tim,Boris
+ Price Bill
+ Brand/Features Tim
+ Price Sonia
+ Brand/Price Marco
+[FIXED]
+None
+[Gewichte]
+weight 1
+[Titel]
+TIMTIM gew1 ORIGINALDEMO
+[Fussnote]
+TNS Infratest 06/2008
+[General Parameters]
+PRODUCTACCEPTANCE NO
+NONE              YES
+BUILTUP           NO

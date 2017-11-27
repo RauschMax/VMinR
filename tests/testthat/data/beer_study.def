@@ -1,0 +1,357 @@
+[Utilities]
+Brand
+ Krombacher 24 x 0,33 l {Krom-<LineBreak/>bacher <LineBreak/> 24 x 0,33l} {0} {Krombacher_Pils_mod.jpg}
+ Krombacher 20 x 0,5l  {Krom-<LineBreak/>bacher <LineBreak/> 20 x 0,5l} {0} {Krombacher_Pils_mod.jpg}
+ Becks 24 x 0,33l {Becks <LineBreak/><LineBreak/> 24 x 0,33l} {0} {Becks_mod.jpg}
+ Becks 20 x 0,5l {Becks <LineBreak/><LineBreak/> 20 x 0,5l} {0} {Becks_mod.jpg}
+ Jever 24 x 0,33l {Jever <LineBreak/><LineBreak/> 24 x 0,33l} {0} {Jever_mod.jpg}
+ Jever 20 x 0,5l {Jever <LineBreak/><LineBreak/> 20 x 0,5l} {0} {Jever_mod.jpg}
+ Veltins 24 x 0,33l {Veltins <LineBreak/><LineBreak/> 24 x 0,33l} {0} {Veltins_mod.jpg}
+ Veltins 20 x 0,5l {Veltins <LineBreak/><LineBreak/> 20 x 0,5l} {0} {Veltins_mod.jpg}
+ Bitburger 20 x 0,33l  {Bit-<LineBreak/>burger <LineBreak/> 20 x 0,33l} {0} {Bitburger_mod.jpg}
+ Bitburger 20 x 0,5l  {Bit-<LineBreak/>burger <LineBreak/> 20 x 0,5l} {0} {Bitburger_mod.jpg}
+ Warsteiner 20 x 0,5l  {War-<LineBreak/>steiner <LineBreak/> 20 x 0,5l} {0} {Warsteiner_mod.jpg}
+ Hasseroeder 20 x 0,5l  {Hasse-<LineBreak/>roeder <LineBreak/> 20 x 0,5l} {0} {Hasseroeder_mod.jpg}
+ Koenig Pilsener 20 x 0,5l {Koenig Pilsener <LineBreak/> 20 x 0,5l} {0} {Koenig_Pilsener_mod.jpg}
+ Radeberger 20 x 0,5l  {Rade-<LineBreak/>berger <LineBreak/>20 x 0,5l} {0} {Radeberger_mod.jpg}
+ Freiberger 20 x 0,5l  {Frei-<LineBreak/>berger <LineBreak/>20 x 0,5l} {0} {Freiberger_Pilsner_mod.jpg}
+ Berliner Kindl 20 x 0,5l {Berliner Kindl <LineBreak/>20 x 0,5l} {0} {Berliner_Kindl_mod.jpg}
+ Holsten 20 x 0,5l {Holsten <LineBreak/><LineBreak/>20 x 0,5l} {0} {Holsten_mod.jpg}
+ Luebzer 20 x 0,5l {Luebzer <LineBreak/><LineBreak/>20 x 0,5l} {0} {Luebzer_mod.jpg}
+ Flensburger 20 x 0,3 3l {Flens-<LineBreak/>burger <LineBreak/>20 x 0,33l} {0} {Flensburger_mod.jpg}
+ Wernesgruener 20 x 0,5l {Wernes-<LineBreak/>gruener <LineBreak/>20 x 0,5l} {0} {Wernesgruener_mod.jpg}
+ Ur Krostitzer 20 x 0,5l {Ur Krostitzer <LineBreak/>20 x 0,5l} {0} {Ur_Krostitzer_mod.jpg}
+ Paderborner 20 x 0,5 l {Pader-<LineBreak/>borner <LineBreak/>20 x 0,5l} {0} {Paderborner_mod.jpg}
+ Oettinger 20 x 0,5l {Oettinger <LineBreak/><LineBreak/>20 x 0,5l} {0} {Oettinger_mod.jpg}
+ Berliner Pilsner 20 x 0,5l {Berliner Pilsner <LineBreak/>20 x 0,5l} {0} {Berliner_Pilsner_mod.jpg}
+ Astra Urtyp 27 x 0,33l {Astra <LineBreak/>Urtyp <LineBreak/>27 x 0,33l} {0} {Astra_mod.jpg}
+Price 1
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+ € 13,99 {13.99}
+Price 2
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+ € 13,99 {13.99}
+Price 3
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 12,49 {12.49}
+ € 13,49 {13.49}
+ € 14,99 {14.99}
+Price 4
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 12,49 {12.49}
+ € 13,49 {13.49}
+ € 14,99 {14.99}
+Price 5
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+ € 13,99 {13.99}
+Price 6
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+ € 13,99 {13.99}
+Price 7
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+ € 13,99 {13.99}
+Price 8
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+ € 13,99 {13.99}
+Price 9
+ € 7,99 {7.99}
+ € 8,99 {8.99}
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+Price 10
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+ € 13,99 {13.99}
+Price 11
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+ € 13,99 {13.99}
+Price 12
+ € 8,99 {8.99}
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+Price 13
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+ € 13,99 {13.99}
+Price 14
+ € 8,99 {8.99}
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+Price 15
+ € 8,99 {8.99}
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+Price 16
+ € 8,99 {8.99}
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+Price 17
+ € 7,99 {7.99}
+ € 8,99 {8.99}
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+Price 18
+ € 8,99 {8.99}
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+Price 19
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+ € 13,99 {13.99}
+Price 20
+ € 8,99 {8.99}
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+Price 21
+ € 8,99 {8.99}
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+Price 22
+ € 4,99 {4.99}
+ € 5,49 {5.49}
+ € 5,99 {5.99}
+ € 6,49 {6.49}
+ € 6,99 {6.99}
+Price 23
+ € 4,99 {4.99}
+ € 5,49 {5.49}
+ € 5,99 {5.99}
+ € 6,49 {6.49}
+ € 6,99 {6.99}
+Price 24
+ € 8,99 {8.99}
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+ € 12,99 {12.99}
+Price 25
+ € 7,99 {7.99}
+ € 8,99 {8.99}
+ € 9,99 {9.99}
+ € 10,99 {10.99}
+ € 11,99 {11.99}
+[Fixed]
+None
+[Gewichte]
+Weighted
+[Segmente]
+Region
+ Baden-Württemberg
+ Bayern
+ Berlin
+ Brandenburg
+ Bremen
+ Hamburg
+ Hessen
+ Mecklenburg-Vorpommern
+ Niedersachsen
+ Nordrhein-Westfalen
+ Rheinland-Pfalz
+ Saarland
+ Sachsen
+ Sachsen-Anhalt
+ Schleswig-Holstein
+ Thüringen
+Age
+ 18-29
+ 30-99
+ 40 or older
+Ever bought: Becks
+ Yes
+ No
+Ever bought: Bitburger
+ Yes
+ No
+Ever bought: Flensburger
+ Yes
+ No
+Ever bought: Hasseröder
+ Yes
+ No
+Ever bought: Holsten
+ Yes
+ No
+Ever bought: Jever
+ Yes
+ No
+Ever bought: König
+ Yes
+ No
+Ever bought: Krombacher
+ Yes
+ No
+Ever bought: Radeberger
+ Yes
+ No
+Ever bought: Veltins
+ Yes
+ No
+Ever bought: Warsteiner
+ Yes
+ No
+Ever bought: Wernesgrüner
+ Yes
+ No
+Also bought recently: Becks
+ Yes
+ No
+Also bought recently: Bitburger
+ Yes
+ No
+Also bought recently: Flensburger
+ Yes
+ No
+Also bought recently: Hasseröder
+ Yes
+ No
+Also bought recently: Holsten
+ Yes
+ No
+Also bought recently: Jever
+ Yes
+ No
+Also bought recently: König
+ Yes
+ No
+Also bought recently: Krombacher
+ Yes
+ No
+Also bought recently: Radeberger
+ Yes
+ No
+Also bought recently: Veltins
+ Yes
+ No
+Also bought recently: Warsteiner
+ Yes
+ No
+Also bought recently: Wernesgrüner
+ Yes
+ No
+Mainly bought brand
+ Astra Urtyp
+ Becks
+ Berliner Kindl
+ Berliner Pilsener
+ Bitburger
+ Flensburger
+ Freiberger
+ Hasseröder
+ Holsten
+ Jever
+ König
+ Krombacher
+ Lübzer
+ Oettinger
+ Paderborner
+ Radeberger
+ Ur Krostitzer
+ Veltins
+ Warsteiner
+ Wernesgrüner
+ other
+Consumer segments
+ Routine buyer
+ Indifferent buyer
+ Exclusive buyer
+ Orientation buyer
+Referencial Price  knowledge
+ No Price  preference
+ External reference
+ Internal reference
+ Internal and external
+Usage
+ I bought it mainly for myself
+ I bought it mainly for others
+ I bought it as much for myself as I did for others
+Reason for purchase
+ I had no particular reason to buy that beer
+ I bought that beer for a particular reason (barbecue, party, seeing friends)
+Purchase trigger
+ I ran out of beer.
+ I had some beer at home, but still wanted to stock up.
+ I had beer at home, but wanted to buy a different type or brand.
+ I saw a special offer and that made me buy beer
+Type of buyer
+ I have one favourite brand and do not pay much attention to other brands and what they cost.
+ I switch between a few brands that I like, but don't pay much attention to Price s.
+ I compare Price s carefully, but only between a few brands, that I like.
+ I compare Price s very carefully, brands are not that important to me.
+Buying habits and attidudes VM1
+ I think that brands differ a lot
+ I think that all brands are more or less the same
+Buying habits and attidudes VM2
+ I always know exactly what brand I'm going to buy before I enter the shop
+ I decide what brand I'm going to buy when I'm standing in front of the shelf
+Buying habits and attidudes VM3
+ I always buy the brand I bought last time
+ I switch between different brands
+Buying habits and attidudes VM4
+ I compare Price s very carefully before I make a choice
+ To be honest, I compare Price s only superficially
+Buying habits and attidudes VM5
+ I always search for special offers first
+ Special offers are not the first thing I look out for
+Buying habits and attidudes VM6
+ I always know the Price  of the products I buy
+ I never really know what products cost
+Buying habits and attidudes VM7
+ I'm always interested in new products
+ I prefer to stick to what I know
+Buying habits and attidudes VM8
+ I think that products in this category need to be improved
+ I'm completely satisfied with the products as they are
+Buying habits and attidudes VM9
+ I find it very easy to make the right choice for me
+ I find it very difficult to make the right choice for me
+[Variablen]
+[Auswertungen]
+[Parametern]
+[Funktionen]
+
+
