@@ -109,17 +109,30 @@ calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev 
   # linear regression - purchase intention vs. utility sums ----
   # y = a + b * x; utl_sum = a + b * PI
 
-  # b = sum((x - mean(x)) * (y - mean(y))) / sum((x - mean(x))^2) ----
-  b <- apply((utl_sum - apply(utl_sum, 1, mean)) *
-               (PurchaseInt - apply(PurchaseInt, 1, mean)), 1, sum) /
-    apply(((PurchaseInt - apply(PurchaseInt, 1, mean))^2), 1, sum)
+  lm_data <- data.frame(logPI = as.vector(t(logit_PurchaseInt)),
+                        x = as.vector(t(utl_sum)))
 
-  # set missings to 0 - missings appear when worst concept == best concept
-  b[is.na(b)] <- 0
-  b
+  lm_coeff <- matrix(NA, ncol = 2, nrow = nrow(logit_PurchaseInt))
+  count <- 0
+  for (i in seq(1, 2 * nrow(lm_coeff), by = 2)) {
+    count <- count + 1
+    lm_coeff[count,] <- lm(logPI ~ 1 + x, data = lm_data[i:(i + 1),])$coeff
+  }
 
-  # a = mean(y) - b * mean(x) ----
-  a <- apply(utl_sum, 1, mean) - b * apply(PurchaseInt, 1, mean)
+  a <- lm_coeff[,1]
+  b <- lm_coeff[,2]
+
+  # # b = sum((x - mean(x)) * (y - mean(y))) / sum((x - mean(x))^2) ----
+  # b <- apply((utl_sum - apply(utl_sum, 1, mean)) *
+  #              (logit_PurchaseInt - apply(logit_PurchaseInt, 1, mean)), 1, sum) /
+  #   apply(((logit_PurchaseInt - apply(logit_PurchaseInt, 1, mean))^2), 1, sum)
+  #
+  # # set missings to 0 - missings appear when worst concept == best concept
+  # b[is.na(b)] <- 0
+  # b
+
+  # # a = mean(y) - b * mean(x) ----
+  # a <- apply(utl_sum, 1, mean) - b * apply(logit_PurchaseInt, 1, mean)
 
   # CALIBRATION STEP ----
   # y = b * x + a / natt
@@ -140,6 +153,8 @@ calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev 
                  check_order_PI = check_order_PI,
                  utl_sum = utl_sum,
                  PurchaseInt = PurchaseInt,
+                 logit_PurchaseInt = logit_PurchaseInt,
+                 lm_data = lm_data,
                  utl_sum_ORIG = utl_sum_ORIG,
                  PurchaseInt_ORIG = PurchaseInt_ORIG,
                  a = a,
