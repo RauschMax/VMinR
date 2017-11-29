@@ -116,7 +116,7 @@ calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev 
   count <- 0
   for (i in seq(1, 2 * nrow(lm_coeff), by = 2)) {
     count <- count + 1
-    lm_coeff[count,] <- lm(logPI ~ 1 + x, data = lm_data[i:(i + 1),])$coeff
+    lm_coeff[count,] <- stats::lm(logPI ~ 1 + x, data = lm_data[i:(i + 1),])$coeff
   }
 
   a <- lm_coeff[,1]
