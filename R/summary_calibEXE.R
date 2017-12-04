@@ -38,7 +38,7 @@ summary_calibEXE <- function(calibData = calibData, outfile = "summary.txt", inf
   ProdAcc_worst_calib <- exp(rowSums(worst_dummy * calibData$utils_calib[,-ncol(calibData$utils_calib)])) /
     (1 + exp(rowSums(worst_dummy * calibData$utils_calib[,-ncol(calibData$utils_calib)])))
 
-  cat("SUMMARY \n", file = "summary.txt")
+  cat("SUMMARY \n", file = outfile)
   cat(infile, "\n\n", file = outfile, append = TRUE)
 
   order1 <- table(factor(calibData$check_order_BW, levels = c("FALSE", "TRUE")))
