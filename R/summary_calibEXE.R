@@ -74,6 +74,14 @@ summary_calibEXE <- function(calibData = calibData, outfile = "summary.txt", inf
   cat("See csv outputs for details.\n", file = outfile, append = TRUE)
   cat("----------------------------------------------------------------------\n\n",
       file = outfile, append = TRUE)
+  cat("Purchase Intention - average PI, direct questions:\n",
+      file = outfile, append = TRUE)
+  cat("BEST:   ", round(colMeans(calibData$PurchaseInt)[1], 2), "\n",
+      file = outfile, append = TRUE)
+  cat("WORST:  ", round(colMeans(calibData$PurchaseInt)[2], 2), "\n",
+      file = outfile, append = TRUE)
+  cat("----------------------------------------------------------------------\n\n",
+      file = outfile, append = TRUE)
   cat("CORRELATIONS - calculated product acceptance vs. purchase intention question:\n",
       file = outfile, append = TRUE)
   cat("BEST (calibrated):   ", round(stats::cor(ProdAcc_best_calib, calibData$PurchaseInt[,1]), 2), "\n",
