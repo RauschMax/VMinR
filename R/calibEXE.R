@@ -69,14 +69,14 @@ calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev 
   utl_sum_best <- rowSums(utils * best_dummy)
   utl_sum_worst <- rowSums(utils * worst_dummy)
 
-  utl_sum <- cbind(utl_sum_best, utl_sum_worst)
+  utl_sum <- round(cbind(utl_sum_best, utl_sum_worst), 3)
   colnames(utl_sum) <- c("best", "worst")
 
   # check if best is better than worst
   # Set utl_sum_worst == utl_sum_best if WRONG ORDER
   check_order <- apply(utl_sum, 1, function(x) {x[1] > x[2]})
   utl_sum_ORIG <- utl_sum
-  utl_sum[!check_order, 2] <- utl_sum[!check_order, 1]
+  utl_sum[!check_order, 2] <- utl_sum[!check_order, 1] - 0.001
 
   # rescale 5 point scale to %-values ----
   #
