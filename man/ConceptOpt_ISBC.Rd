@@ -5,7 +5,7 @@
 \title{Concept optimization with ISBC}
 \usage{
 ConceptOpt_ISBC(dat = NULL, def = NULL, FrameData = NULL, calib = TRUE,
-  nlev = NULL, cut = 42)
+  nlev = NULL, cut = 42, ID = "Respondent_Serial")
 }
 \arguments{
 \item{dat}{A string indicating the path/filename of the ValueDriver dat-file.}
@@ -21,6 +21,8 @@ intention - default = \code{TRUE}.}
 
 \item{cut}{An integer value indicating the maximal value for utilities after calibration.
 (required for \code{\link{calibEXE}})}
+
+\item{ID}{A string indicating the name of teh ID variable in the SPSS dataset - default = \code{"Respondent_Serial"}.}
 }
 \value{
 A list including 13 elements

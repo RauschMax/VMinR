@@ -11,6 +11,7 @@
 #' @param nlev A vector indicating the number of levels per attribute
 #' @param cut An integer value indicating the maximal value for utilities after calibration.
 #' (required for \code{\link{calibEXE}})
+#' @param ID A string indicating the name of teh ID variable in the SPSS dataset - default = \code{"Respondent_Serial"}.
 #' @return A list including 13 elements
 #' \item{call}{A string returning the call including the inputs}
 #' \item{calibData}{A list with the values of the \code{\link{calibEXE}} call.
@@ -41,7 +42,7 @@
 
 
 
-ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TRUE, nlev = NULL, cut = 42) {
+ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TRUE, nlev = NULL, cut = 42, ID = "Respondent_Serial") {
   # some checks ----
   if (is.null(dat)) stop("Please provide the path and filename of the ValueDriver dat-file!")
   if (is.null(def)) stop("Please provide the path and filename of the ValueDriver def-file!")
@@ -73,7 +74,7 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
 
     purch_worst <- frame_data$"VM_DCM_Driver_Block1_VM_DCM_BestWorst_worst_PurchaseIntention"
 
-    BWconcepts <- as.data.frame(cbind(frame_data$Respondent_Serial, best_concepts, worst_concepts, purch_best, purch_worst))
+    BWconcepts <- as.data.frame(cbind(frame_data[ID], best_concepts, worst_concepts, purch_best, purch_worst))
     names(BWconcepts) <- c("ID",
                            paste0("B_Att_", sequence(natt)),
                            paste0("W_Att_", sequence(natt)),
