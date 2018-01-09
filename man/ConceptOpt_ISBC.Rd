@@ -42,16 +42,20 @@ calibrated ValueDriver dat-file. (\code{NULL} if \code{calib == FALSE}))}
 These usually can be ignored}
 }
 \description{
-Runs the process for "concept optimization with ISBC" studies
+Runs the process for "concept optimization with ISBC" studies - Always weighted!
 }
 \examples{
 
 \dontrun{
-calibData <- calibEXE(BWconcepts = BWconcepts[, c(paste0("B_Att_", sequence(natt)),
-                                                  paste0("W_Att_", sequence(natt)))],
-PI = BWconcepts[, c("PI_B", "PI_W")],
-utils = dat_input$utils_mat,
-cut = 42, nlev = nlev)
+nlev <- c(4, 4, 4, 2, 4, 2, 4, 6)
+ConcOptTest <- ConceptOpt_ISBC("Innogy.dat",
+                               "Innogy.def",
+                               FrameData = "./data_calib.SAV",
+                               calib = TRUE,
+                               nlev = nlev,
+                               cut = 42,
+                               ID = "Respondent_Serial")
+str(ConcOptTest)
 }
 
 }
