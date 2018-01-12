@@ -4,15 +4,12 @@
 \alias{get_PricerData}
 \title{Import ValuePricer data and definitions}
 \usage{
-get_PricerData(dat_file = NULL, def_file = NULL, nseg = NULL,
-  none = TRUE)
+get_PricerData(dat_file = NULL, def_file = NULL, none = TRUE)
 }
 \arguments{
 \item{dat_file}{A string value with the path to the DAT file to import.}
 
 \item{def_file}{A string value with the path to the DEF file to import.}
-
-\item{nseg}{An integer indicating the number of segments in the dat-file}
 
 \item{none}{A boolean variable indicating whether NONE is included in the
 dat file or not - default = \code{TRUE}}
@@ -43,7 +40,6 @@ information.
 \dontrun{
 beer_data <- get_PricerData(dat_file = "beer_study.dat",
                             def_file = "beer_study.def",
-                            nseg = 42,
                             none = TRUE)
 
 str(beer_data)

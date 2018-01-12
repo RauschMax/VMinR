@@ -10,7 +10,6 @@
 #'
 #' @param dat_file A string value with the path to the DAT file to import.
 #' @param def_file A string value with the path to the DEF file to import.
-#' @param nseg An integer indicating the number of segments in the dat-file
 #' @param none A boolean variable indicating whether NONE is included in the
 #' dat file or not - default = \code{TRUE}
 #' @return A list including elements \item{dat}{A matrix of the imported
@@ -34,14 +33,13 @@
 #' \dontrun{
 #' beer_data <- get_PricerData(dat_file = "beer_study.dat",
 #'                             def_file = "beer_study.def",
-#'                             nseg = 42,
 #'                             none = TRUE)
 #'
 #' str(beer_data)
 #' }
 #'
 #' @export get_PricerData
-get_PricerData <- function(dat_file = NULL, def_file = NULL, nseg = NULL, none = TRUE) {
+get_PricerData <- function(dat_file = NULL, def_file = NULL, none = TRUE) {
 
   if (is.null(dat_file)) {
     stop("You need to specifiy a dat-file")
@@ -49,12 +47,11 @@ get_PricerData <- function(dat_file = NULL, def_file = NULL, nseg = NULL, none =
   if (is.null(def_file)) {
     stop("You need to specifiy a def-file")
   }
-  if (is.null(nseg)) {
-    stop("You need to specifiy the number of segments in the dat-file")
-  }
 
   ## read def-file
   def <- VP.read_def(def_file)
+
+  nseg <- def$nseg
 
   ## extract prices tested
   pricemat_tested <- def$prices
