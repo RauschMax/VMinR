@@ -26,7 +26,7 @@ individual awareness factors from the dat file.} \item{idis}{A matrix
 including the individual distribution factors from the dat file.}
 \item{seg}{A matrix containing the segment data} \item{weight}{A vector
 containing the weight per respondent} \item{def}{A list containing the
-values from \code{\link{VD.read_def}}} \item{pricemat_tested}{A matrix
+values from \code{\link{VP.read_def}}} \item{pricemat_tested}{A matrix
 containing the prices used in the model} \item{pricerange_tested}{A vector
 containing the minimal and maximal price used in the model}
 \item{pr_range_mat}{A matrix containing the minimal and maximal prices per
