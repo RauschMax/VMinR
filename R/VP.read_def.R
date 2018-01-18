@@ -20,7 +20,7 @@
 #'
 #' @export VP.read_def
 VP.read_def <- function(file) {
-  def <- scan(file, what="character", sep="\n", strip.white=T)
+  def <- scan(file, what="character", sep="\n", strip.white=TRUE, quiet = TRUE)
   start_brand <- which(def == "Brand") + 1
   end_brand <- which(def == "Price 1" | def == "Price1") - 1
 
@@ -30,16 +30,15 @@ VP.read_def <- function(file) {
                     ifelse(any(def == "[Fixed]"), which(def == "[Fixed]")-1, which(def == "[Segmente]")-1))]
 
   brands_help <- def[seq(start_brand, end_brand)]
-  cat(brands_help, file="brands.data", sep="\n")
-  brands <- scan("brands.data", what="character", flush=TRUE, sep="{")
-  unlink("brands.data")
+  brands <- sub(' *\\{.*', '', brands_help)
 
-  cat(prices[-which(prices %in% paste("Price", sequence(nBrands)))], file = "prices.data", sep = "\n")
-  prices1 <- scan("prices.data", what=list("character", "numeric"), sep="{", comment.char = "}")[[2]]
+  price_help <- regmatches(prices[-which(prices %in% paste("Price", sequence(nBrands)))],
+                           regexpr('\\{(.*)\\}', prices[-which(prices %in% paste("Price", sequence(nBrands)))]))
+  prices1 <- gsub('[\\{\\}]', '', price_help)
   price_mat <- matrix(as.numeric(prices1), nrow=nBrands, byrow=TRUE)
   unlink("prices.data")
 
-  def_seg <- scan(file, what="character", sep="\n")
+  def_seg <- scan(file, what="character", sep="\n", quiet = TRUE)
 
   seg_part <- c((which(def_seg == "[Segmente]") + 1):(which(def_seg == "[Variablen]") - 1))
 
