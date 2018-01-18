@@ -68,31 +68,31 @@ testthat::test_that('Test import and calculations of VMinR package (ValuePricer)
                                0.039, 0.025, 0.029, 0.035, 0.043, 0.053, 0.073, 0.017,
                                0.043))
 
-  testthat::expect_identical(beer_def$brands, c("Krombacher 24 x 0,33 l ",
-                                                "Krombacher 20 x 0,5l  ",
-                                                "Becks 24 x 0,33l ",
-                                                "Becks 20 x 0,5l ",
-                                                "Jever 24 x 0,33l ",
-                                                "Jever 20 x 0,5l ",
-                                                "Veltins 24 x 0,33l ",
-                                                "Veltins 20 x 0,5l ",
-                                                "Bitburger 20 x 0,33l  ",
-                                                "Bitburger 20 x 0,5l  ",
-                                                "Warsteiner 20 x 0,5l  ",
-                                                "Hasseroeder 20 x 0,5l  ",
-                                                "Koenig Pilsener 20 x 0,5l ",
-                                                "Radeberger 20 x 0,5l  ",
-                                                "Freiberger 20 x 0,5l  ",
-                                                "Berliner Kindl 20 x 0,5l ",
-                                                "Holsten 20 x 0,5l ",
-                                                "Luebzer 20 x 0,5l ",
-                                                "Flensburger 20 x 0,3 3l ",
-                                                "Wernesgruener 20 x 0,5l ",
-                                                "Ur Krostitzer 20 x 0,5l ",
-                                                "Paderborner 20 x 0,5 l ",
-                                                "Oettinger 20 x 0,5l ",
-                                                "Berliner Pilsner 20 x 0,5l ",
-                                                "Astra Urtyp 27 x 0,33l "))
+  testthat::expect_identical(beer_def$brands, c("Krombacher 24 x 0,33 l",
+                                                "Krombacher 20 x 0,5l",
+                                                "Becks 24 x 0,33l",
+                                                "Becks 20 x 0,5l",
+                                                "Jever 24 x 0,33l",
+                                                "Jever 20 x 0,5l",
+                                                "Veltins 24 x 0,33l",
+                                                "Veltins 20 x 0,5l",
+                                                "Bitburger 20 x 0,33l",
+                                                "Bitburger 20 x 0,5l",
+                                                "Warsteiner 20 x 0,5l",
+                                                "Hasseroeder 20 x 0,5l",
+                                                "Koenig Pilsener 20 x 0,5l",
+                                                "Radeberger 20 x 0,5l",
+                                                "Freiberger 20 x 0,5l",
+                                                "Berliner Kindl 20 x 0,5l",
+                                                "Holsten 20 x 0,5l",
+                                                "Luebzer 20 x 0,5l",
+                                                "Flensburger 20 x 0,3 3l",
+                                                "Wernesgruener 20 x 0,5l",
+                                                "Ur Krostitzer 20 x 0,5l",
+                                                "Paderborner 20 x 0,5 l",
+                                                "Oettinger 20 x 0,5l",
+                                                "Berliner Pilsner 20 x 0,5l",
+                                                "Astra Urtyp 27 x 0,33l"))
 })
 
 
@@ -162,7 +162,7 @@ testthat::test_that('Test ConceptOpt ISBC of VMinR package', {
 
   testthat::expect_identical(round(mean(shares_ProdAcc), 3), 0.144)
 
-  testthat::expect_identical(round(mean(shares_ProdAcc_calib), 3), 0.056)
+  testthat::expect_identical(round(mean(shares_ProdAcc_calib), 3), 0.192)
 })
 
 
