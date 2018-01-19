@@ -15,7 +15,7 @@ VD.read_def(file, nlev)
 A list including elements \item{att_List}{A list containing one
 element per attribute which contains a vector of the levels} \item{nlev}{A
 vector indicating the number of levels per attribute} \item{natt}{A variable
-returning the number of attributes} \item{def_seg}{A list containg the
+returning the number of attributes} \item{def}{A list containg the
 labels of the segment data (variable names and levels)} \item{nseg}{A
 variable returning the number of segments} \item{file_in}{A string value
 with the path to the DEF file which was passed to the function.}

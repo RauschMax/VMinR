@@ -32,7 +32,7 @@ VP.read_def <- function(file) {
                     ifelse(any(def == "[Fixed]"), which(def == "[Fixed]")-1, which(def == "[Segmente]")-1))]
 
   brands_help <- def[seq(start_brand, end_brand)]
-  brands <- sub(' *\\{.*', '', brands_help)
+  brands <- gsub('^ {1,}| *\\{.*', '', brands_help)
 
   price_help <- regmatches(prices[-which(prices %in% c(paste("Price", sequence(nBrands)),
                                                        paste0("Price", sequence(nBrands))))],

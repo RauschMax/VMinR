@@ -41,8 +41,7 @@ testthat::test_that('Test import and calculations of VMinR package (ValuePricer)
 
   #Run the function that are testing the outputs here
   beer_data <- VMinR::get_PricerData(dat_file = "data/beer_study.dat",
-                              def_file = "data/beer_study.def",
-                              nseg = 42, none = TRUE)
+                              def_file = "data/beer_study.def", none = TRUE)
 
   beer_def <- beer_data$def
 
