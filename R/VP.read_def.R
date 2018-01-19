@@ -32,10 +32,13 @@ VP.read_def <- function(file) {
   brands_help <- def[seq(start_brand, end_brand)]
   brands <- sub(' *\\{.*', '', brands_help)
 
-  price_help <- regmatches(prices[-which(prices %in% paste("Price", sequence(nBrands)))],
-                           regexpr('\\{(.*)\\}', prices[-which(prices %in% paste("Price", sequence(nBrands)))]))
+  price_help <- regmatches(prices[-which(prices %in% c(paste("Price", sequence(nBrands)),
+                                                       paste0("Price", sequence(nBrands))))],
+                           regexpr('\\{(.*)\\}', prices[-which(prices %in% c(paste("Price", sequence(nBrands)),
+                                                                             paste0("Price", sequence(nBrands))))]))
   prices1 <- gsub('[\\{\\}]', '', price_help)
   price_mat <- matrix(as.numeric(prices1), nrow=nBrands, byrow=TRUE)
+  unlink("prices.data")
 
   def_seg <- scan(file, what="character", sep="\n", quiet = TRUE)
 
