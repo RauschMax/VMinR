@@ -20,7 +20,9 @@
 #'
 #' @export VP.read_def
 VP.read_def <- function(file) {
-  def <- scan(file, what="character", sep="\n", strip.white=TRUE, quiet = TRUE)
+  # def <- scan(file, what="character", sep="\n", strip.white=TRUE, quiet = TRUE)
+  def <- readLines(file, skipNul = TRUE)
+  def <- def[def != ""]
   start_brand <- which(def == "Brand") + 1
   end_brand <- which(def == "Price 1" | def == "Price1") - 1
 
@@ -40,22 +42,20 @@ VP.read_def <- function(file) {
   price_mat <- matrix(as.numeric(prices1), nrow=nBrands, byrow=TRUE)
   unlink("prices.data")
 
-  def_seg <- scan(file, what="character", sep="\n", quiet = TRUE)
+  seg_part <- c((which(def == "[Segmente]") + 1):(which(def == "[Variablen]") - 1))
 
-  seg_part <- c((which(def_seg == "[Segmente]") + 1):(which(def_seg == "[Variablen]") - 1))
+  def <- def[seg_part]
 
-  def_seg <- def_seg[seg_part]
+  seg_ind_BIN <- unlist(lapply(strsplit(def, " "), function(x) {x[1] == ""}))
 
-  seg_ind_BIN <- unlist(lapply(strsplit(def_seg, " "), function(x) {x[1] == ""}))
+  def_lab <- def[!seg_ind_BIN]
 
-  def_seg_lab <- def_seg[!seg_ind_BIN]
-
-  help_seg_ind <- cbind(which(!seg_ind_BIN) + 1, c(which(!seg_ind_BIN)[-1] - 1, length(def_seg)))
+  help_seg_ind <- cbind(which(!seg_ind_BIN) + 1, c(which(!seg_ind_BIN)[-1] - 1, length(def)))
   seg_lev_ind <- apply(help_seg_ind, 1, function(x) {seq(x[1], x[2])})
-  help_list <- lapply(seg_lev_ind, function(x) {def_seg[x]})
+  help_list <- lapply(seg_lev_ind, function(x) {def[x]})
 
-  def_seg_lev <- lapply(help_list, function(x) {unlist(lapply(strsplit(x, " "), function(y) {paste(y[-1], collapse = " ")})) })
-  names(def_seg_lev) <- def_seg_lab
+  def_lev <- lapply(help_list, function(x) {unlist(lapply(strsplit(x, " "), function(y) {paste(y[-1], collapse = " ")})) })
+  names(def_lev) <- def_lab
 
-  return(list(brands = brands, prices = price_mat, def_seg = def_seg_lev, nseg = length(def_seg_lab)))
+  return(list(brands = brands, prices = price_mat, def = def_lev, nseg = length(def_lab)))
 }
