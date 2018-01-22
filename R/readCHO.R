@@ -3,10 +3,10 @@
 
 
 #' Read Sawtooth CHO file
-#' 
+#'
 #' Reads the Sawtooth CHO file
-#' 
-#' 
+#'
+#'
 #' @param fileIN A string with the file name to be imported incl. path (if
 #' necessary)
 #' @param progress A boolean variable indicating if progress bar should be
@@ -26,15 +26,15 @@
 #' IDs}
 #' @author Maximilian Rausch - Maximilian.Rausch@@tns-infratest.com
 #' @examples
-#' 
+#'
 #' \dontrun{
 #' choIN <- readCHO("example.cho")
 #' }
-#' 
+#'
 #' @export readCHO
 readCHO <- function(fileIN, progress = TRUE) {
 
-  cho_input <- utils::read.table(fileIN, fill=TRUE)
+  cho_input <- utils::read.table(fileIN, fill=TRUE, header = FALSE)
 
   ## relevant for Fortschrittsbalken ##
   count <- 0
