@@ -25,8 +25,7 @@
 #' \item{overview}{A data.frame with additional information on the calibExe step.
 #' (\code{NULL} if \code{calib == FALSE}))}
 #' \item{path}{A string returning the working directory where the export files had been saved to.}
-#' \item{SPSSwarn}{A vector with potential warnings during the SPSS import.
-#' These usually can be ignored}
+#' \item{weight}{A vector with the weight used for aggregation}
 #' @author Maximilian Rausch - Maximilian.Rausch@tns-infratest.com
 #' @examples
 #'

@@ -38,8 +38,7 @@ calibrated ValueDriver dat-file. (\code{NULL} if \code{calib == FALSE}))}
 \item{overview}{A data.frame with additional information on the calibExe step.
 (\code{NULL} if \code{calib == FALSE}))}
 \item{path}{A string returning the working directory where the export files had been saved to.}
-\item{SPSSwarn}{A vector with potential warnings during the SPSS import.
-These usually can be ignored}
+\item{weight}{A vector with the weight used for aggregation}
 }
 \description{
 Runs the process for "concept optimization with ISBC" studies - Always weighted!
