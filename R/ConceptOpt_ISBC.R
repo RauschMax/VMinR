@@ -107,10 +107,10 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
   }
 
   # aggregated product acceptance
-  agg_shares <- round(apply(shares_ProdAcc, 2, mean), 3)
+  agg_shares <- round(apply(shares_ProdAcc, 2, weighted.mean, w = dat_input$weight), 3)
 
   if (calib) {
-    agg_shares_calib <- round(apply(shares_ProdAcc_calib, 2, mean), 3)
+    agg_shares_calib <- round(apply(shares_ProdAcc_calib, 2, weighted.mean, w = dat_input$weight), 3)
   }
 
   # export histogram and comparison-csv if calib = TRUE
@@ -199,11 +199,11 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
   if (calib) {
     excel_export_calib <- cbind(allConc,
                                 agg_shares_calib,
-                                round(apply(shares_ProdAcc, 2, stats::sd), 3),
-                                round(t(shares_ProdAcc), 3))
+                                round(apply(shares_ProdAcc_calib, 2, stats::sd), 3),
+                                round(t(shares_ProdAcc_calib), 3))
 
     colnames(excel_export_calib) <- c(paste("Att", seq_along(nlev)), "ProdAcc ALL", "ProdAcc SD",
-                                      paste("ProdAcc Resp", 1:dim(shares_ProdAcc)[1], sep=""))
+                                      paste("ProdAcc Resp", 1:dim(shares_ProdAcc_calib)[1], sep=""))
 
     # EXPORT csv-file !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     utils::write.table(excel_export_calib, "ProdAcc_Overview_calib.csv", sep = ";", dec = ",", col.names = NA)
@@ -220,6 +220,7 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
                  excel_export_calib = excel_export_calib,
                  dat_file_calib = dat_file_calib,
                  overview = export1,
-                 path = getwd()))
+                 path = getwd(),
+                 weight = dat_input$weight))
 
 }
