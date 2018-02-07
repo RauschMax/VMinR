@@ -106,7 +106,7 @@ testthat::test_that('Test ConceptOpt ISBC of VMinR package', {
 
   # read dat/def file (ValueDriver structure) ----
   # debugonce(get_DriverData)
-  dat_input <- get_DriverData("data/Smartwatches_uncal_effects.dat",
+  dat_input <- VMinR::get_DriverData("data/Smartwatches_uncal_effects.dat",
                               "data/ISBC_Points_uncal.def",
                               nlev = nlev, none = TRUE)
 
