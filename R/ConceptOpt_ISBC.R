@@ -106,10 +106,10 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
   }
 
   # aggregated product acceptance
-  agg_shares <- round(apply(shares_ProdAcc, 2, weighted.mean, w = dat_input$weight), 3)
+  agg_shares <- round(apply(shares_ProdAcc, 2, stats::weighted.mean, w = dat_input$weight), 3)
 
   if (calib) {
-    agg_shares_calib <- round(apply(shares_ProdAcc_calib, 2, weighted.mean, w = dat_input$weight), 3)
+    agg_shares_calib <- round(apply(shares_ProdAcc_calib, 2, stats::weighted.mean, w = dat_input$weight), 3)
   }
 
   # export histogram and comparison-csv if calib = TRUE
@@ -121,9 +121,8 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
     levels(hist_dat_reshape$time) <- c("agg_shares", "agg_shares_calib")
 
     # Histogram with density curve
-    # requireNamespace("ggplot2")
     ggplot2::ggplot(data = hist_dat_reshape, ggplot2::aes(x = agg_shares)) +
-      ggplot2::geom_histogram(colour = "black", binwidth = .01, ggplot2::aes(fill = hist_dat_reshape$time, y = ..density..)) +
+      ggplot2::geom_histogram(colour = "black", binwidth = .01, ggplot2::aes(fill = hist_dat_reshape$time)) +
       ggplot2::geom_density(size=1) +
       ggplot2::facet_grid(time ~ .) +
       ggplot2::theme(legend.position="none")        # No legend (redundant in this graph)
