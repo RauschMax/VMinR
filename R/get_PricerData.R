@@ -64,7 +64,7 @@ get_PricerData <- function(dat_file = NULL, def_file = NULL, none = TRUE) {
   col_dat <- 1 + sum(nlev) + none[1]*1 + nseg + 1 + 2 * (length(def$brands)+1)
 
   ## read dat-file and label it in case of standard dat-file
-  dat <- matrix(scan(dat_file), ncol=col_dat, byrow=TRUE)
+  dat <- matrix(scan(dat_file, quiet = TRUE), ncol=col_dat, byrow=TRUE)
   if (none[1]) {
     colnames(dat) <- c("ID", paste("SKU", sequence(nlev[1]), sep=""), paste("p", rep(sequence(nlev[1]), nlev[-1]), "l", sequence(nlev[-1]), sep=""), "none", paste("seg", 1:nseg, sep=""), "gew", paste("iaw", sequence(length(def$brands)), sep=""), "iawnone", paste("idis", sequence(length(def$brands)), sep=""), "idisnone")
   }

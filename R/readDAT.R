@@ -3,10 +3,10 @@
 
 
 #' Read Sawtooth DAT file
-#' 
+#'
 #' Reads the Sawtooth DAT file
-#' 
-#' 
+#'
+#'
 #' @param inFILE A string with the file name to be imported incl. path (if
 #' necessary)
 #' @param exportCOMPLETES A boolean variable indicating if a dat file with the
@@ -30,11 +30,11 @@
 #' only}
 #' @author Maximilian Rausch - Maximilian.Rausch@@tns-infratest.com
 #' @examples
-#' 
+#'
 #' \dontrun{
 #' dat_file <- readDAT("example.dat")
 #' }
-#' 
+#'
 #' @export readDAT
 readDAT <- function(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE, ID_var = "r", out_unique = NULL, out_COMP = NULL, progress = TRUE) {
 
@@ -42,7 +42,7 @@ readDAT <- function(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE, ID_var
   if (is.null(out_COMP)) out_COMP <- paste0(strsplit(inFILE, split = "[.]")[[1]][1], "_complete.dat")
 
   # read the dat-file as character vector
-  dat_file <- scan(inFILE, what="character", sep="\n", strip.white=TRUE, blank.lines.skip = FALSE)
+  dat_file <- scan(inFILE, what="character", sep="\n", strip.white=TRUE, blank.lines.skip = FALSE, quiet = TRUE)
 
   # extract the single cases
   ind_mat <- cbind(c(1, which(dat_file == "")[-length(which(dat_file == ""))] + 1),

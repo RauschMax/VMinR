@@ -1,8 +1,8 @@
 #' Correlation heatmap
-#' 
+#'
 #' Calculates correlation heatmap and MDS coordinates for ValuePricer projects.
-#' 
-#' 
+#'
+#'
 #' @param input_file the path to the heatmap input file. A specific file which
 #' contains all the necessary information. (See VM sharepoint)
 #' @param sepOUT separator for output csv-files - default = \code{";"}
@@ -46,7 +46,7 @@
 #' SKU indicies used for the heatmap calculation.}
 #' @author Maximilian Rausch - Maximilian.Rausch@@tns-infratest.com
 #' @examples
-#' 
+#'
 #' \dontrun{
 #' heat <- correlation_HeatMap("Input_DUMMY.txt",
 #'                             usedraws=FALSE,
@@ -54,13 +54,13 @@
 #'                             sepOUT=",",
 #'                             decOUT=".")
 #' }
-#' 
+#'
 #' @export correlation_HeatMap
 correlation_HeatMap <- function(input_file = NULL, sepOUT = ";", decOUT = ",", usedraws = FALSE, clustered = FALSE) {
   if (is.null(input_file)) stop("Please specify the path to the input file!")
 
   # read input file and define the skip parameters for reading the data files
-  input <- scan(input_file, what="character", sep="\n", strip.white=T, comment.char = "*", blank.lines.skip = FALSE)
+  input <- scan(input_file, what="character", sep="\n", strip.white=T, comment.char = "*", blank.lines.skip = FALSE, quiet = TRUE)
   skip_hbu  <- which(input == "[DAT-File]")
   if (length(skip_hbu) == 0) stop(paste("Please check your input file", input_file, ". The part [DAT-File] is missing!"))
   skip_draw <- which(input == "[DRAW-File]")
@@ -86,7 +86,7 @@ correlation_HeatMap <- function(input_file = NULL, sepOUT = ";", decOUT = ",", u
   nresp <- length(as.matrix(data.table::fread(input[skip_hbu + 1], sep="\n", header=FALSE)))
 
   cat("reading Data \n") # read dat-file
-  hbu <- matrix(scan(input[skip_hbu + 1]), nrow=nresp, byrow=T)[,1:(sum(nlev)+2)]
+  hbu <- matrix(scan(input[skip_hbu + 1], quiet = TRUE), nrow=nresp, byrow=T)[,1:(sum(nlev)+2)]
   hbu <- hbu[order(hbu[,1]),]
   colnames(hbu) <- c("respnum", paste("SKU_", 1:(nlev[1]), sep=""),
                      paste("p", rep(1:(nlev[1]), nlev[-1]), "_", sequence(nlev[-1]), sep=""), "none")
@@ -98,7 +98,7 @@ correlation_HeatMap <- function(input_file = NULL, sepOUT = ";", decOUT = ",", u
   if (usedraws) {
     cat("reading DRAWS \n")  # read draw-file if specified
     draws <- as.matrix(data.table::fread(input[skip_draw + 1], skip=1))
-    #draws <- matrix(scan(input[skip_draw + 1], skip=1, sep=sepIN, dec=decIN, comment.char = "*"), ncol=(sum(nlev) + 4), byrow=T)
+    #draws <- matrix(scan(input[skip_draw + 1], skip=1, sep=sepIN, dec=decIN, comment.char = "*", quiet = TRUE), ncol=(sum(nlev) + 4), byrow=T)
     draws <- draws[order(draws[,1]),]
     colnames(draws) <- c("respnum", "draw", "RLH", paste("SKU_", 1:(nlev[1]), sep=""),
                          paste("p", rep(1:(nlev[1]), nlev[-1]), "_", sequence(nlev[-1]), sep=""), "none")
@@ -112,7 +112,7 @@ correlation_HeatMap <- function(input_file = NULL, sepOUT = ";", decOUT = ",", u
   }
   else {
     # read prespecified base case and convert to dummy coded matrix
-    simIN <- matrix(scan(input_file, skip=skip_base, nlines = skip_out-skip_base-1, comment.char = "*"), ncol=2, byrow=TRUE)
+    simIN <- matrix(scan(input_file, skip=skip_base, nlines = skip_out-skip_base-1, comment.char = "*", quiet = TRUE), ncol=2, byrow=TRUE)
     simPrices <- simIN[,2]
     simSKUs <- simIN[,1]
   }
@@ -121,7 +121,7 @@ correlation_HeatMap <- function(input_file = NULL, sepOUT = ";", decOUT = ",", u
   brand_list <- NA
   if (clustered){
     cat("Reading cluster information \n")
-    brand_mat <- matrix(scan(input_file, skip=skip_cluster, nlines=skip_names-skip_cluster-1, comment.char = "*"), ncol=2, byrow=TRUE)
+    brand_mat <- matrix(scan(input_file, skip=skip_cluster, nlines=skip_names-skip_cluster-1, comment.char = "*", quiet = TRUE), ncol=2, byrow=TRUE)
     if (!identical(sort(brand_mat[,2]), sort(simSKUs))) stop("The SKUs used in the clusters need to be identical to the ones in the basecase")
     brand_list <- split(seq_along(brand_mat[,2]), brand_mat[,1])
     names(brand_list) <- input[(skip_names+1):(skip_SKU-1)]

@@ -4,11 +4,11 @@
 
 
 #' Import ValueDriver data and definitions
-#' 
+#'
 #' Imports the dat/def files for a ValueDriver study and extracts the relevant
 #' information.
-#' 
-#' 
+#'
+#'
 #' @param dat_file A string value with the path to the DAT file to import.
 #' @param def_file A string value with the path to the DEF file to import.
 #' @param nlev A vector indicating the number of levels per attribute
@@ -30,7 +30,7 @@
 #' (number of total levels)}
 #' @author Maximilian Rausch - Maximilian.Rausch@@tns-infratest.com
 #' @examples
-#' 
+#'
 #' \dontrun{
 #' VDdata <- get_DriverData(dat_file = "TEST_timtim_gew.dat",
 #'                          def_file = "TEST_timtim_gew.def",
@@ -38,7 +38,7 @@
 #'                          none = TRUE)
 #' str(VDdata)
 #' }
-#' 
+#'
 #' @export get_DriverData
 get_DriverData <- function(dat_file = NULL, def_file = NULL, nlev = NULL, none = TRUE) {
 
@@ -60,7 +60,7 @@ get_DriverData <- function(dat_file = NULL, def_file = NULL, nlev = NULL, none =
   col_dat <- 5 + sum(nlev) + none*1 + 1 + nseg
 
   ## read dat-file and label it in case of standard dat-file
-  dat <- matrix(scan(dat_file), ncol=col_dat, byrow=TRUE)
+  dat <- matrix(scan(dat_file, quiet = TRUE), ncol=col_dat, byrow=TRUE)
   if (none) {
     colnames(dat) <- c("ID", "RLH", "nAttr", "nLev", "nSeg", paste("Att", rep(sequence(natt), nlev), "Lev", sequence(nlev), sep=""), "none", "weight", paste("seg", 1:nseg, sep=""))
   }
