@@ -58,6 +58,7 @@ For details please refer to `VMinR.pdf` in  [VMinR_test/doc](https://kantarware.
 * calibEXE
 * summary_calibEXE
 * prodAcceptance
+* ConceptOpt_ISBC
 
 ### other functions
 * covertSSItoDesign
