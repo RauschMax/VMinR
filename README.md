@@ -8,7 +8,7 @@ If you want to install the BeastDevTools package, then you will need the followi
 * git2r
 
 The only other thing you will need to install packages from TNS-AnalyticsDE-VMTools are kantarware generated git credentials. 
-If you haven't already generated these from another project then click [here](https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR_Test). 
+If you haven't already generated these from another project then click [here](https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR). 
 Once you are on this screen, you will see a "Clone" button towards the top-right corner of the screen. Click on the button, and you will see this pop-up:
 
 ![](doc/gitcred.png)
@@ -20,11 +20,10 @@ From there: Go to R (e.g. using RStudio) and run the following script to install
 
 ```
 install.packages(c('devtools', 'git2r'))
-remove.packages("VMinR")
 
 creds <- git2r::cred_user_pass("USER NAME", "PASSWORD")
 
-devtools::install_git("https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR_Test", 
+devtools::install_git("https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR", 
                       credentials = creds)
 
 library(VMinR)
@@ -37,7 +36,7 @@ The package currently contains basic import and simulation functions for ValueDr
 It also contains some basic import functions for the most often used Sawtooth files. 
 Apart from that functions to create a heatmap for ValuePricer studies is included.
 
-For details please refer to `VMinR.pdf` in  [VMinR_test/doc](https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR_Test?path=%2Fdoc)
+For details please refer to `VMinR.pdf` in  [VMinR_test/doc](https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR?path=%2Fdoc)
 
 ### ValueDriver
 * get_DriverData
