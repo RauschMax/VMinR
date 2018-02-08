@@ -2,7 +2,9 @@
 The aim of `VMinR` is to provide a set of usfull R-functions to ValueManager modellers.
 
 ## Installation
-If you want to install the BeastDevTools package, then you will need the following packages:
+General Info on [KT-BeastRepo.wiki](https://kantarware.visualstudio.com/KT-BeastRepo/_wiki/wikis/KT-BeastRepo.wiki?wikiVersion=GBwikiMaster&pagePath=%2FGetting-Started%2FInstalling-Packages-from-Kantarware).
+
+If you want to install the `VMinR` package, then you will need the following packages:
 
 * devtools
 * git2r
@@ -11,7 +13,6 @@ The only other thing you will need to install packages from TNS-AnalyticsDE-VMTo
 If you haven't already generated these from another project then click [here](https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR). 
 Once you are on this screen, you will see a "Clone" button towards the top-right corner of the screen. Click on the button, and you will see this pop-up:
 
-You will find more detailed information in the [KT-BeastRepo.wiki](https://kantarware.visualstudio.com/KT-BeastRepo/_wiki/wikis/KT-BeastRepo.wiki?wikiVersion=GBwikiMaster&pagePath=%2FGetting-Started%2FInstalling-Packages-from-Kantarware).
 
 ![](doc/gitcred.png)
 
