@@ -11,6 +11,8 @@ The only other thing you will need to install packages from TNS-AnalyticsDE-VMTo
 If you haven't already generated these from another project then click [here](https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR). 
 Once you are on this screen, you will see a "Clone" button towards the top-right corner of the screen. Click on the button, and you will see this pop-up:
 
+You will find more detailed information in the [KT-BeastRepo.wiki](https://kantarware.visualstudio.com/KT-BeastRepo/_wiki/wikis/KT-BeastRepo.wiki?wikiVersion=GBwikiMaster&pagePath=%2FGetting-Started%2FInstalling-Packages-from-Kantarware).
+
 ![](doc/gitcred.png)
 
 
@@ -20,15 +22,10 @@ From there: Go to R (e.g. using RStudio) and run the following script to install
 
 ```
 install.packages(c('devtools', 'git2r'))
-
-creds <- git2r::cred_user_pass("USER NAME", "PASSWORD")
-
-devtools::install_git("https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR", 
-                      credentials = creds)
-
-library(VMinR)
-
-hello()
+library(devtools)
+library(git2r)
+creds <- cred_user_pass('<KT GIT USERNAME>', '<KT GIT PASSWORD>')
+install_git('https://kantarware.visualstudio.com/KT-BeastRepo/_git/VMinR', credentials = creds)
 ```
 
 ## Functionality
