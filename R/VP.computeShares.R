@@ -79,7 +79,7 @@ VP.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev, wei
   base_design[row_interpol,]
 
   if (none) {
-    base_design <- cbind(base_design, 0)
+    # base_design <- cbind(base_design, 0)
     base_design <- rbind(base_design, c(rep(0, dim(base_design)[2]-1), 1))
   }
 
