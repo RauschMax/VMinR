@@ -57,7 +57,10 @@ VP.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev, wei
 
   if (is.null(weight)) weight = rep(1, dim(utils)[1])
 
-  if (!is.null(iaw)) iaw <- t(iaw)
+  if (!is.null(iaw)) {
+    ind_iaw <- switch(none + 1, simSKUs, c(simSKUs, dim(prices)[1] + 1))
+    iaw <- t(iaw[, ind_iaw])
+  }
 
   price_ind <- matrix(seq(1, dim(prices)[1]*dim(prices)[2]) + dim(prices)[1], nrow=dim(prices)[1], ncol=dim(prices)[2],byrow=TRUE)
 
