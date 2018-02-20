@@ -3,11 +3,11 @@
 
 
 #' Compute ValuePricer shares
-#' 
+#'
 #' Calculates the shares (first choice or preference share) for a ValuePricer
 #' like study.
-#' 
-#' 
+#'
+#'
 #' @param utils A matrix containing the utilities
 #' @param prices A matrix containing the prices used in the interview
 #' @param simPrices A vector containing the prices to be used in the simulated
@@ -36,9 +36,9 @@
 #' \item{simShares}{aggregated shares accross all respondents}
 #' @author Maximilian Rausch - Maximilian.Rausch@@tns-infratest.com
 #' @examples
-#' 
+#'
 #' beer_def <- beer_data$def
-#' 
+#'
 #' sim_Beer <- VP.computeShares(beer_data$utils_mat,
 #'                              beer_def$prices,
 #'                              beer_def$prices[,3],
@@ -48,14 +48,16 @@
 #'                              none = FALSE,
 #'                              iaw = NULL,
 #'                              FC = FALSE)
-#' 
+#'
 #' round(sim_Beer$simShares, 3)
-#' 
+#'
 #' @export VP.computeShares
 VP.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev, weight = NULL, none = FALSE, iaw = NULL, FC = FALSE) {
   if(is.null(simSKUs)) ifelse(length(simPrices) == dim(prices)[1], simSKUs <- seq_along(simPrices), stop("We need to know the SKUs to be simulated please!"))
 
   if (is.null(weight)) weight = rep(1, dim(utils)[1])
+
+  if (!is.null(iaw)) iaw <- t(iaw)
 
   price_ind <- matrix(seq(1, dim(prices)[1]*dim(prices)[2]) + dim(prices)[1], nrow=dim(prices)[1], ncol=dim(prices)[2],byrow=TRUE)
 
