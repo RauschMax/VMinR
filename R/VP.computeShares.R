@@ -108,7 +108,7 @@ VP.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev, wei
     sim <- exp_xbeta / matrix(rep(colSums(exp_xbeta), dim(Xbeta)[1]), ncol=dim(Xbeta)[2], byrow=TRUE)
     if (!is.null(iaw)) {
       sim <- sim * iaw
-      sim <- sim / rowSums(sim)
+      sim <- sim / colSums(sim)
     }
   }
 
