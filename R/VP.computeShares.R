@@ -72,12 +72,12 @@ VP.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev, wei
 
   base_design_close <- as.matrix(cbind(convertSSItoDesign(cbind(simSKUs, diag(nlev[1])[simSKUs,]*base_pr_lev[simSKUs]), nlev=nlev), 0))
 
-  row_interpol <- which(base_pr_lev %% 1 != 0)
+  row_interpol <- which(base_pr_lev[simSKUs] %% 1 != 0)
 
   base_design <- base_design_close
   for (i in row_interpol) {
     col_interpol <- which(base_design_close[i, ] != 0)[2]
-    base_design[i, c(col_interpol, col_interpol+1)] <- c(1-(base_pr_lev %% 1)[i],  (base_pr_lev %% 1)[i])
+    base_design[i, c(col_interpol, col_interpol+1)] <- c(1-(base_pr_lev[simSKUs] %% 1)[i],  (base_pr_lev[simSKUs] %% 1)[i])
   }
   base_design[row_interpol,]
 
