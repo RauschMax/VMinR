@@ -27,9 +27,9 @@ VP.read_def <- function(file) {
   end_brand <- which(def == "Price 1" | def == "Price1") - 1
 
   nBrands <- end_brand - start_brand + 1
-  nPriceLev <- (which(def == "Price 2" | def == "Price2") - 1) - which(def == "Price 1" | def == "Price1")
+  # nPriceLev <- (which(def == "Price 2" | def == "Price2") - 1) - which(def == "Price 1" | def == "Price1")
   prices <- def[seq(which(def == "Price 1" | def == "Price1"),
-                    ifelse(any(def == "[Fixed]"), which(def == "[Fixed]")-1, which(def == "[Segmente]")-1))]
+                    ifelse(any(def == "[Fixed]"), which(def == "[Fixed]") - 1, which(def == "[Segmente]") - 1))]
 
   brands_help <- def[seq(start_brand, end_brand)]
   brands <- gsub('^ {1,}| *\\{.*', '', brands_help)
@@ -39,7 +39,7 @@ VP.read_def <- function(file) {
                            regexpr('\\{(.*)\\}', prices[-which(prices %in% c(paste("Price", sequence(nBrands)),
                                                                              paste0("Price", sequence(nBrands))))]))
   prices1 <- gsub('[\\{\\}]', '', price_help)
-  price_mat <- matrix(as.numeric(prices1), nrow=nBrands, byrow=TRUE)
+  price_mat <- matrix(as.numeric(prices1), nrow = nBrands, byrow = TRUE)
   unlink("prices.data")
 
   seg_part <- c((which(def == "[Segmente]") + 1):(which(def == "[Variablen]") - 1))
@@ -54,7 +54,9 @@ VP.read_def <- function(file) {
   seg_lev_ind <- apply(help_seg_ind, 1, function(x) {seq(x[1], x[2])})
   help_list <- lapply(seg_lev_ind, function(x) {def[x]})
 
-  def_lev <- lapply(help_list, function(x) {unlist(lapply(strsplit(x, " "), function(y) {paste(y[-1], collapse = " ")})) })
+  def_lev <- lapply(help_list, function(x) {
+    unlist(lapply(strsplit(x, " "), function(y) {paste(y[-1], collapse = " ")}))
+    })
   names(def_lev) <- def_lab
 
   return(list(brands = brands, prices = price_mat, def = def_lev, nseg = length(def_lab)))

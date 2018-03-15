@@ -91,7 +91,7 @@ calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev 
 
   check_recode <- cbind(PI[, 1], PurchaseInt_best,
                         PI[, 2], PurchaseInt_worst)
-  PurchaseInt <- check_recode[, c(2,4)]
+  PurchaseInt <- check_recode[, c(2, 4)]
   colnames(PurchaseInt) <- c("best", "worst")
 
   # check if best is rated better than worst
@@ -101,8 +101,8 @@ calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev 
   PurchaseInt[!check_order_PI, 2] <- PurchaseInt[!check_order_PI, 1]
 
   # logit transformation ----
-  logitPI_best <- log(PurchaseInt_best / (1 - PurchaseInt_best))
-  logitPI_worst <- log(PurchaseInt_worst / (1 - PurchaseInt_worst))
+  # logitPI_best <- log(PurchaseInt_best / (1 - PurchaseInt_best))
+  # logitPI_worst <- log(PurchaseInt_worst / (1 - PurchaseInt_worst))
 
   logit_PurchaseInt <- log(PurchaseInt / (1 - PurchaseInt))
 
@@ -116,11 +116,11 @@ calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev 
   count <- 0
   for (i in seq(1, 2 * nrow(lm_coeff), by = 2)) {
     count <- count + 1
-    lm_coeff[count,] <- stats::lm(logPI ~ 1 + x, data = lm_data[i:(i + 1),])$coeff
+    lm_coeff[count, ] <- stats::lm(logPI ~ 1 + x, data = lm_data[i:(i + 1), ])$coeff
   }
 
-  a <- lm_coeff[,1]
-  b <- lm_coeff[,2]
+  a <- lm_coeff[, 1]
+  b <- lm_coeff[, 2]
 
   # # b = sum((x - mean(x)) * (y - mean(y))) / sum((x - mean(x))^2) ----
   # b <- apply((utl_sum - apply(utl_sum, 1, mean)) *

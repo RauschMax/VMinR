@@ -61,39 +61,48 @@ get_PricerData <- function(dat_file = NULL, def_file = NULL, none = TRUE) {
   ## extract the number of SKUs and price points
   nlev <- c(length(def$brands), rep(dim(def$prices)[2], dim(def$prices)[1]))
 
-  col_dat <- 1 + sum(nlev) + none[1]*1 + nseg + 1 + 2 * (length(def$brands)+1)
+  col_dat <- 1 + sum(nlev) + none[1] * 1 + nseg + 1 + 2 * (length(def$brands) + 1)
 
   ## read dat-file and label it in case of standard dat-file
-  dat <- matrix(scan(dat_file, quiet = TRUE), ncol=col_dat, byrow=TRUE)
+  dat <- matrix(scan(dat_file, quiet = TRUE), ncol = col_dat, byrow = TRUE)
   if (none[1]) {
-    colnames(dat) <- c("ID", paste("SKU", sequence(nlev[1]), sep=""), paste("p", rep(sequence(nlev[1]), nlev[-1]), "l", sequence(nlev[-1]), sep=""), "none", paste("seg", 1:nseg, sep=""), "gew", paste("iaw", sequence(length(def$brands)), sep=""), "iawnone", paste("idis", sequence(length(def$brands)), sep=""), "idisnone")
+    colnames(dat) <- c("ID", paste("SKU", sequence(nlev[1]), sep = ""),
+                       paste("p", rep(sequence(nlev[1]), nlev[-1]), "l",
+                             sequence(nlev[-1]), sep = ""), "none", paste("seg", 1:nseg, sep = ""), "gew",
+                       paste("iaw", sequence(length(def$brands)), sep = ""), "iawnone",
+                       paste("idis", sequence(length(def$brands)), sep = ""), "idisnone")
   }
   else {
-    colnames(dat) <- c("ID", paste("SKU", sequence(nlev[1]), sep=""), paste("p", rep(sequence(nlev[1]), nlev[-1]), "l", sequence(nlev[-1]), sep=""), paste("seg", 1:nseg, sep=""), "gew", paste("iaw", sequence(length(def$brands)), sep=""), paste("idis", sequence(length(def$brands)), sep=""))
+    colnames(dat) <- c("ID", paste("SKU", sequence(nlev[1]), sep = ""),
+                       paste("p", rep(sequence(nlev[1]), nlev[-1]), "l", sequence(nlev[-1]), sep = ""),
+                       paste("seg", 1:nseg, sep = ""), "gew", paste("iaw", sequence(length(def$brands)), sep = ""),
+                       paste("idis", sequence(length(def$brands)), sep = ""))
   }
 
-  weight <- dat[,"gew"]
+  weight <- dat[, "gew"]
 
   ## define indicies of the utility values (with or without NONE)
-  ifelse(none, utils_ind <- 2:(sum(nlev)+2), utils_ind <- 2:(sum(nlev)+1))
+  ifelse(none, utils_ind <- 2:(sum(nlev) + 2), utils_ind <- 2:(sum(nlev) + 1))
 
   ## extract utilities to list
-  utils_list <- split(dat[,utils_ind], dat[,1])
+  utils_list <- split(dat[, utils_ind], dat[, 1])
 
   ## extract utilities to matrix
-  utils_mat <- dat[,utils_ind]
+  utils_mat <- dat[, utils_ind]
 
-  ifelse(none, iaw_ind <- which(colnames(dat) %in% c(paste("iaw", sequence(length(def$brands)), sep=""), "iawnone")),
-         iaw_ind <- which(colnames(dat) %in% c(paste("iaw", sequence(length(def$brands)), sep=""))))
-  ifelse(none, idis_ind <- which(colnames(dat) %in% c(paste("idis", sequence(length(def$brands)), sep=""), "idisnone")),
-         idis_ind <- which(colnames(dat) %in% c(paste("idis", sequence(length(def$brands)), sep=""))))
+  ifelse(none, iaw_ind <- which(colnames(dat) %in% c(paste("iaw", sequence(length(def$brands)), sep = ""),
+                                                     "iawnone")),
+         iaw_ind <- which(colnames(dat) %in% c(paste("iaw", sequence(length(def$brands)), sep = ""))))
+  ifelse(none, idis_ind <- which(colnames(dat) %in% c(paste("idis", sequence(length(def$brands)), sep = ""),
+                                                      "idisnone")),
+         idis_ind <- which(colnames(dat) %in% c(paste("idis", sequence(length(def$brands)), sep = ""))))
 
-  iaw <- dat[,iaw_ind]
-  idis <- dat[,idis_ind]
+  iaw <- dat[, iaw_ind]
+  idis <- dat[, idis_ind]
 
-  seg_ind <- which(colnames(dat) %in% paste("seg", 1:nseg, sep=""))
+  seg_ind <- which(colnames(dat) %in% paste("seg", 1:nseg, sep = ""))
 
-  seg_dat <- dat[,seg_ind]
+  seg_dat <- dat[, seg_ind]
 
   invisible(list(dat = dat,
                  utils_mat = utils_mat,
@@ -108,5 +117,5 @@ get_PricerData <- function(dat_file = NULL, def_file = NULL, none = TRUE) {
                  pr_range_mat = pr_range_mat,
                  SKUs = def$brands,
                  nlev = nlev,
-                 ID = dat[,1]))
+                 ID = dat[, 1]))
 }

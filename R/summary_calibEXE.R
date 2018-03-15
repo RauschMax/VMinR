@@ -26,17 +26,17 @@ summary_calibEXE <- function(calibData = calibData, outfile = "summary.txt", inf
     calibData$BWconcepts[, (1 + ncol(calibData$BWconcepts) / 2):ncol(calibData$BWconcepts)],
     nlev = calibData$nlev))
 
-  ProdAcc_best <- exp(rowSums(best_dummy * calibData$utils[,-ncol(calibData$utils)])) /
-    (1 + exp(rowSums(best_dummy * calibData$utils[,-ncol(calibData$utils)])))
+  ProdAcc_best <- exp(rowSums(best_dummy * calibData$utils[, -ncol(calibData$utils)])) /
+    (1 + exp(rowSums(best_dummy * calibData$utils[, -ncol(calibData$utils)])))
 
-  ProdAcc_best_calib <- exp(rowSums(best_dummy * calibData$utils_calib[,-ncol(calibData$utils_calib)])) /
-    (1 + exp(rowSums(best_dummy * calibData$utils_calib[,-ncol(calibData$utils_calib)])))
+  ProdAcc_best_calib <- exp(rowSums(best_dummy * calibData$utils_calib[, -ncol(calibData$utils_calib)])) /
+    (1 + exp(rowSums(best_dummy * calibData$utils_calib[, -ncol(calibData$utils_calib)])))
 
-  ProdAcc_worst <- exp(rowSums(worst_dummy * calibData$utils[,-ncol(calibData$utils)])) /
-    (1 + exp(rowSums(worst_dummy * calibData$utils[,-ncol(calibData$utils)])))
+  ProdAcc_worst <- exp(rowSums(worst_dummy * calibData$utils[, -ncol(calibData$utils)])) /
+    (1 + exp(rowSums(worst_dummy * calibData$utils[, -ncol(calibData$utils)])))
 
-  ProdAcc_worst_calib <- exp(rowSums(worst_dummy * calibData$utils_calib[,-ncol(calibData$utils_calib)])) /
-    (1 + exp(rowSums(worst_dummy * calibData$utils_calib[,-ncol(calibData$utils_calib)])))
+  ProdAcc_worst_calib <- exp(rowSums(worst_dummy * calibData$utils_calib[, -ncol(calibData$utils_calib)])) /
+    (1 + exp(rowSums(worst_dummy * calibData$utils_calib[, -ncol(calibData$utils_calib)])))
 
   cat("SUMMARY \n", file = outfile)
   cat(infile, "\n\n", file = outfile, append = TRUE)
@@ -84,13 +84,13 @@ summary_calibEXE <- function(calibData = calibData, outfile = "summary.txt", inf
       file = outfile, append = TRUE)
   cat("CORRELATIONS - calculated product acceptance vs. purchase intention question:\n",
       file = outfile, append = TRUE)
-  cat("BEST (calibrated):   ", round(stats::cor(ProdAcc_best_calib, calibData$PurchaseInt[,1]), 2), "\n",
+  cat("BEST (calibrated):   ", round(stats::cor(ProdAcc_best_calib, calibData$PurchaseInt[, 1]), 2), "\n",
       file = outfile, append = TRUE)
-  cat("BEST (uncalibrated): ", round(stats::cor(ProdAcc_best, calibData$PurchaseInt[,1]), 2), "\n",
+  cat("BEST (uncalibrated): ", round(stats::cor(ProdAcc_best, calibData$PurchaseInt[, 1]), 2), "\n",
       file = outfile, append = TRUE)
-  cat("WORST (calibrated):  ", round(stats::cor(ProdAcc_worst_calib, calibData$PurchaseInt[,2]), 2), "\n",
+  cat("WORST (calibrated):  ", round(stats::cor(ProdAcc_worst_calib, calibData$PurchaseInt[, 2]), 2), "\n",
       file = outfile, append = TRUE)
-  cat("WORST (uncalibrated):", round(stats::cor(ProdAcc_worst, calibData$PurchaseInt[,2]), 2), "\n",
+  cat("WORST (uncalibrated):", round(stats::cor(ProdAcc_worst, calibData$PurchaseInt[, 2]), 2), "\n",
       file = outfile, append = TRUE)
 
 }

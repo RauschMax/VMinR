@@ -1,11 +1,11 @@
 
 
 #' VM test data - ValuePricer "beer study""
-#' 
+#'
 #' Dataset containing the variable contents (data model) settings to perform
 #' input validation.
-#' 
-#' 
+#'
+#'
 #' @name beer_data
 #' @docType data
 #' @format A list with the data of the beer study.  \describe{ \item{dat}{A
@@ -26,10 +26,10 @@
 #' respondent} }
 #' @keywords datasets
 #' @examples
-#' 
+#'
 #' data(beer_data)
 #' str(beer_data)
-#' 
+#'
 NULL
 
 
@@ -37,11 +37,11 @@ NULL
 
 
 #' VM test data - timtim
-#' 
+#'
 #' Dataset containing the variable contents (data model) settings to perform
 #' input validation.
-#' 
-#' 
+#'
+#'
 #' @name VMinR
 #' @docType data
 #' @format A list with 3 elements.  \describe{ \item{VDdata}{A list containing
@@ -50,11 +50,8 @@ NULL
 #' matrix containing the scenario information in dummy coding} }
 #' @keywords datasets
 #' @examples
-#' 
+#'
 #' data(VMinR)
 #' str(VMinR)
-#' 
+#'
 NULL
-
-
-

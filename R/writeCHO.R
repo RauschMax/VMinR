@@ -3,11 +3,11 @@
 
 
 #' Read Sawtooth CHO file
-#' 
+#'
 #' writes the Sawtooth CHO file; Input is based on the list elements of
 #' \code{\link{readCHO}}.
-#' 
-#' 
+#'
+#'
 #' @param export_file A string with the file name to be writen to incl. path
 #' (if necessary)
 #' @param design_out matrix/data.frame: design to be exported: 1st column:
@@ -26,11 +26,11 @@
 #' @return No output returned. File writen to working directory.
 #' @author Maximilian Rausch - Maximilian.Rausch@@tns-infratest.com
 #' @examples
-#' 
+#'
 #' \dontrun{
 #' writeCHO(export_file = "outfile.cho", choIN$design_out, choIN$ind_info_OUT, choIN$nconc, choIN$cho)
 #' }
-#' 
+#'
 #' @export writeCHO
 writeCHO <- function(export_file = "outfile.cho", design_out, ind_info_OUT, nconc, cho, progress = TRUE) {
 
@@ -58,7 +58,8 @@ writeCHO <- function(export_file = "outfile.cho", design_out, ind_info_OUT, ncon
       write(c(nconc[[i]][j], 1), file = export_file, append = TRUE)
 
       # design of concept j
-      utils::write.table(design_out[which(design_out[,1] == i & design_out[,3] == j), -(1:4)], file = export_file, append = TRUE, col.names = FALSE, row.names = FALSE)
+      utils::write.table(design_out[which(design_out[, 1] == i & design_out[, 3] == j), -(1:4)],
+                         file = export_file, append = TRUE, col.names = FALSE, row.names = FALSE)
 
       # choice, time
       write(c(cho[[i]][j], 99), file = export_file, append = TRUE)
@@ -67,10 +68,15 @@ writeCHO <- function(export_file = "outfile.cho", design_out, ind_info_OUT, ncon
 
     if (progress) {
       ## Fortschrittsbalken ##
-      if (count == 1) cat(paste(c("\r  |", rep.int(" ", 50), sprintf("| %3d%%", round(count/max.iter)*100)), collapse = ""))
+      if (count == 1) cat(paste(c("\r  |", rep.int(" ", 50),
+                                  sprintf("| %3d%%", round(count / max.iter) * 100)), collapse = ""))
 
-      if (count %% (round(max.iter/100, 0)) == 0) cat(paste(c("\r  |", rep.int("=", ceiling((count/max.iter)*50)), rep.int(" ", 50 - ceiling((count/max.iter)*50)), sprintf("| %3d%%", round((count/max.iter)*100))), collapse = ""))
-     utils:: flush.console()
+      if (count %% (round(max.iter / 100, 0)) == 0) cat(paste(c("\r  |",
+                                                              rep.int("=", ceiling((count / max.iter) * 50)),
+                                                              rep.int(" ", 50 - ceiling((count / max.iter) * 50)),
+                                                              sprintf("| %3d%%", round((count / max.iter) * 100))),
+                                                            collapse = ""))
+     utils::flush.console()
 
       count <- count + 1
       ## Fortschrittsbalken - ENDE ##

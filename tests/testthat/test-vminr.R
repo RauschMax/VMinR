@@ -25,10 +25,10 @@ testthat::test_that('Test import and calculations of VMinR package (ValueDriver)
   def <- VDdata$def
 
   #Run all tests wanted
-  testthat::expect_is(VDdata,'list')
-  testthat::expect_is(basecase_dummy,'matrix')
-  testthat::expect_is(sim_BaseR,'list')
-  testthat::expect_is(sim_BaseR$meanShares,'numeric')
+  testthat::expect_is(VDdata, 'list')
+  testthat::expect_is(basecase_dummy, 'matrix')
+  testthat::expect_is(sim_BaseR, 'list')
+  testthat::expect_is(sim_BaseR$meanShares, 'numeric')
 
   testthat::expect_identical(round(sim_BaseR$meanShares, 3), c(0.199, 0.093, 0.145, 0.114, 0.353, 0.096))
 
@@ -47,7 +47,7 @@ testthat::test_that('Test import and calculations of VMinR package (ValuePricer)
 
   sim_Beer <- VMinR::VP.computeShares(beer_data$utils_mat,
                                       beer_def$prices,
-                                      beer_def$prices[,3],
+                                      beer_def$prices[, 3],
                                       simSKUs = NULL,
                                       nlev = beer_data$nlev,
                                       weight = beer_data$weight,
@@ -56,10 +56,10 @@ testthat::test_that('Test import and calculations of VMinR package (ValuePricer)
                                       FC = FALSE)
 
   #Run all tests wanted
-  testthat::expect_is(beer_data,'list')
-  testthat::expect_is(beer_def,'list')
-  testthat::expect_is(sim_Beer,'list')
-  testthat::expect_is(sim_Beer$simShares,'numeric')
+  testthat::expect_is(beer_data, 'list')
+  testthat::expect_is(beer_def, 'list')
+  testthat::expect_is(sim_Beer, 'list')
+  testthat::expect_is(sim_Beer$simShares, 'numeric')
 
   testthat::expect_identical(round(sim_Beer$simShares, 3),
                              c(0.071, 0.081, 0.021, 0.021, 0.019, 0.025, 0.033, 0.031,
@@ -149,30 +149,17 @@ testthat::test_that('Test ConceptOpt ISBC of VMinR package', {
 
   # applies the product acceptance for all concepts on individual level
   shares_ProdAcc <- apply(TestConc_dummy, 1, VMinR::prodAcceptance,
-                          utils = calibData$utils[,-ncol(calibData$utils)])
+                          utils = calibData$utils[, -ncol(calibData$utils)])
   shares_ProdAcc_calib <- apply(TestConc_dummy, 1, VMinR::prodAcceptance,
-                                utils = as.matrix(calibData$utils_calib[,-ncol(calibData$utils_calib)]))
+                                utils = as.matrix(calibData$utils_calib[, -ncol(calibData$utils_calib)]))
 
 
   #Run all tests wanted
-  testthat::expect_is(calibData,'list')
-  testthat::expect_is(shares_ProdAcc,'matrix')
-  testthat::expect_is(shares_ProdAcc_calib,'matrix')
+  testthat::expect_is(calibData, 'list')
+  testthat::expect_is(shares_ProdAcc, 'matrix')
+  testthat::expect_is(shares_ProdAcc_calib, 'matrix')
 
   testthat::expect_identical(round(mean(shares_ProdAcc), 3), 0.144)
 
   testthat::expect_identical(round(mean(shares_ProdAcc_calib), 3), 0.192)
 })
-
-
-
-
-
-
-
-
-
-
-
-
-

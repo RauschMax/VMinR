@@ -17,6 +17,6 @@
 #' @export prodAcceptance
 prodAcceptance <- function(conc, utils) {
 
-  unlist(lapply(utils %*% conc, function(x) exp(x)/(1 + exp(x))))
+  unlist(lapply(utils %*% conc, function(x) exp(x) / (1 + exp(x))))
 
 }
