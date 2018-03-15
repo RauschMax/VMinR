@@ -45,7 +45,8 @@
 
 
 
-ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TRUE, nlev = NULL, cut = 42, ID = "Respondent_Serial") {
+ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TRUE,
+                            nlev = NULL, cut = 42, ID = "Respondent_Serial") {
   # some checks ----
   if (is.null(dat)) stop("Please provide the path and filename of the ValueDriver dat-file!")
   if (is.null(def)) stop("Please provide the path and filename of the ValueDriver def-file!")
@@ -70,8 +71,9 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
     best_concepts <- t(matrix(as.numeric(unlist(lapply(as.character(frame_data$"VM_DCM_Driver_Block1_ISBC_BestConcept"),
                                                        strsplit, split = "[,]"))), nrow = natt)) + 1
 
-    worst_concepts <- t(matrix(as.numeric(unlist(lapply(as.character(frame_data$"VM_DCM_Driver_Block1_ISBC_WorstConcept"),
-                                                        strsplit, split = "[,]"))), nrow = natt)) + 1
+    worst_concepts <- t(matrix(as.numeric(
+      unlist(lapply(as.character(frame_data$"VM_DCM_Driver_Block1_ISBC_WorstConcept"),
+                    strsplit, split = "[,]"))), nrow = natt)) + 1
 
     purch_best <- frame_data$"VM_DCM_Driver_Block1_VM_DCM_BestWorst_best_PurchaseIntention"
 
@@ -84,7 +86,8 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
                            "PI_B", "PI_W")
 
     # calibeEXE step
-    calibData <- calibEXE(BWconcepts = BWconcepts[, c(paste0("B_Att_", sequence(natt)), paste0("W_Att_", sequence(natt)))],
+    calibData <- calibEXE(BWconcepts = BWconcepts[, c(paste0("B_Att_", sequence(natt)),
+                                                      paste0("W_Att_", sequence(natt)))],
                           PI = BWconcepts[, c("PI_B", "PI_W")],
                           utils = dat_input$utils_mat,
                           cut = cut, nlev = nlev)
@@ -98,11 +101,11 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
 
   # applies the product acceptance for all concepts on individual level
   shares_ProdAcc <- apply(allConc_dummy, 1, prodAcceptance,
-                          utils = dat_input$utils_mat[,-ncol(dat_input$utils_mat)])
+                          utils = dat_input$utils_mat[, -ncol(dat_input$utils_mat)])
 
   if (calib) {
     shares_ProdAcc_calib <- apply(allConc_dummy, 1, prodAcceptance,
-                                  utils = as.matrix(calibData$utils_calib[,-ncol(calibData$utils_calib)]))
+                                  utils = as.matrix(calibData$utils_calib[, -ncol(calibData$utils_calib)]))
   }
 
   # aggregated product acceptance
@@ -123,9 +126,9 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
     # Histogram with density curve
     ggplot2::ggplot(data = hist_dat_reshape, ggplot2::aes(x = agg_shares)) +
       ggplot2::geom_histogram(colour = "black", binwidth = .01, ggplot2::aes(fill = hist_dat_reshape$time)) +
-      ggplot2::geom_density(size=1) +
+      ggplot2::geom_density(size = 1) +
       ggplot2::facet_grid(time ~ .) +
-      ggplot2::theme(legend.position="none")        # No legend (redundant in this graph)
+      ggplot2::theme(legend.position = "none")        # No legend (redundant in this graph)
     ggplot2::ggsave("Histograms_agg_shares_calibEXE.pdf",
            plot = ggplot2::last_plot(),
            width = 20, height = 11,
@@ -140,17 +143,17 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
       calibData$BWconcepts[, (1 + ncol(calibData$BWconcepts) / 2):ncol(calibData$BWconcepts)],
       nlev = calibData$nlev))
 
-    ProdAcc_best <- exp(rowSums(best_dummy * calibData$utils[,-ncol(calibData$utils)])) /
-      (1 + exp(rowSums(best_dummy * calibData$utils[,-ncol(calibData$utils)])))
+    ProdAcc_best <- exp(rowSums(best_dummy * calibData$utils[, -ncol(calibData$utils)])) /
+      (1 + exp(rowSums(best_dummy * calibData$utils[, -ncol(calibData$utils)])))
 
-    ProdAcc_best_calib <- exp(rowSums(best_dummy * calibData$utils_calib[,-ncol(calibData$utils_calib)])) /
-      (1 + exp(rowSums(best_dummy * calibData$utils_calib[,-ncol(calibData$utils_calib)])))
+    ProdAcc_best_calib <- exp(rowSums(best_dummy * calibData$utils_calib[, -ncol(calibData$utils_calib)])) /
+      (1 + exp(rowSums(best_dummy * calibData$utils_calib[, -ncol(calibData$utils_calib)])))
 
-    ProdAcc_worst <- exp(rowSums(worst_dummy * calibData$utils[,-ncol(calibData$utils)])) /
-      (1 + exp(rowSums(worst_dummy * calibData$utils[,-ncol(calibData$utils)])))
+    ProdAcc_worst <- exp(rowSums(worst_dummy * calibData$utils[, -ncol(calibData$utils)])) /
+      (1 + exp(rowSums(worst_dummy * calibData$utils[, -ncol(calibData$utils)])))
 
-    ProdAcc_worst_calib <- exp(rowSums(worst_dummy * calibData$utils_calib[,-ncol(calibData$utils_calib)])) /
-      (1 + exp(rowSums(worst_dummy * calibData$utils_calib[,-ncol(calibData$utils_calib)])))
+    ProdAcc_worst_calib <- exp(rowSums(worst_dummy * calibData$utils_calib[, -ncol(calibData$utils_calib)])) /
+      (1 + exp(rowSums(worst_dummy * calibData$utils_calib[, -ncol(calibData$utils_calib)])))
 
     export1 <- data.frame(dat_input$ID, calibData$utl_sum, calibData$check_order_BW,
                           calibData$PurchaseInt, calibData$check_order_PI,
@@ -189,7 +192,7 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
                         round(t(shares_ProdAcc), 3))
 
   colnames(excel_export) <- c(paste("Att", seq_along(nlev)), "ProdAcc ALL", "ProdAcc SD",
-                              paste("ProdAcc Resp", 1:dim(shares_ProdAcc)[1], sep=""))
+                              paste("ProdAcc Resp", 1:dim(shares_ProdAcc)[1], sep = ""))
 
   # EXPORT csv-file !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   utils::write.table(excel_export, "ProdAcc_Overview.csv", sep = ";", dec = ",", col.names = NA)
@@ -201,7 +204,7 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
                                 round(t(shares_ProdAcc_calib), 3))
 
     colnames(excel_export_calib) <- c(paste("Att", seq_along(nlev)), "ProdAcc ALL", "ProdAcc SD",
-                                      paste("ProdAcc Resp", 1:dim(shares_ProdAcc_calib)[1], sep=""))
+                                      paste("ProdAcc Resp", 1:dim(shares_ProdAcc_calib)[1], sep = ""))
 
     # EXPORT csv-file !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     utils::write.table(excel_export_calib, "ProdAcc_Overview_calib.csv", sep = ";", dec = ",", col.names = NA)

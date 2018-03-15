@@ -9,7 +9,7 @@ VD.computeShares(design, utils, nlev, weight = NULL, FC = FALSE,
 }
 \arguments{
 \item{design}{A matrix containing the design including the concepts to
-simulate - in case it is not dummy coded use \code{dummy = TRUE} to ally
+simulate - in case it is not dummy coded use \code{dummy = FALSE} to apply
 dummy coding via \code{\link{convertSSItoDesign}}}
 
 \item{utils}{A matrix containing the utilities}

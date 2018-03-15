@@ -30,8 +30,8 @@ VD.read_def <- function(file, nlev) {
   natt <- length(nlev)
   def <- readLines(file, skipNul = TRUE)
   def <- def[def != ""]
-  start_AttLev <- which(def == "[Utilities]") + 1
-  end_AttLev <- which(def == "[PURCHASE INTENTION]") - 1
+  # start_AttLev <- which(def == "[Utilities]") + 1
+  # end_AttLev <- which(def == "[PURCHASE INTENTION]") - 1
 
   att_List <- vector("list", length = natt)
 
@@ -56,7 +56,9 @@ VD.read_def <- function(file, nlev) {
   seg_lev_ind <- apply(help_seg_ind, 1, function(x) {seq(x[1], x[2])})
   help_list <- lapply(seg_lev_ind, function(x) {def[x]})
 
-  def_lev <- lapply(help_list, function(x) {unlist(lapply(strsplit(x, " "), function(y) {paste(y[-1], collapse = " ")})) })
+  def_lev <- lapply(help_list, function(x) {
+    unlist(lapply(strsplit(x, " "), function(y) {paste(y[-1], collapse = " ")}))
+    })
   names(def_lev) <- def_lab
 
   return(list(att_List = att_List, nlev = nlev, natt = natt, def = def_lev, nseg = length(def_lab), file_in = file))

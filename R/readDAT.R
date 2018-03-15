@@ -36,13 +36,14 @@
 #' }
 #'
 #' @export readDAT
-readDAT <- function(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE, ID_var = "r", out_unique = NULL, out_COMP = NULL, progress = TRUE) {
+readDAT <- function(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE,
+                    ID_var = "r", out_unique = NULL, out_COMP = NULL, progress = TRUE) {
 
   if (is.null(out_unique)) out_unique <- paste0(strsplit(inFILE, split = "[.]")[[1]][1], "_UNIQUE.dat")
   if (is.null(out_COMP)) out_COMP <- paste0(strsplit(inFILE, split = "[.]")[[1]][1], "_complete.dat")
 
   # read the dat-file as character vector
-  dat_file <- scan(inFILE, what="character", sep="\n", strip.white=TRUE, blank.lines.skip = FALSE, quiet = TRUE)
+  dat_file <- scan(inFILE, what = "character", sep = "\n", strip.white = TRUE, blank.lines.skip = FALSE, quiet = TRUE)
 
   # extract the single cases
   ind_mat <- cbind(c(1, which(dat_file == "")[-length(which(dat_file == ""))] + 1),
@@ -73,8 +74,8 @@ readDAT <- function(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE, ID_var
 
     dat <- rbind(dat, help1)
     dat <- as.data.frame(dat)
-    dat[,1:6] <- apply(dat[,1:6], 2, as.numeric)
-    dat[,7] <- as.character(dat[,7])
+    dat[, 1:6] <- apply(dat[, 1:6], 2, as.numeric)
+    dat[, 7] <- as.character(dat[, 7])
 
     colnames(dat)[1:7] <- c("V1", "sys_internal", "V3", "V4", "V5", "V6", "status")
 
@@ -85,10 +86,14 @@ readDAT <- function(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE, ID_var
       ## Fortschrittsbalken ##
       if (count == 1) {
 
-        cat(paste(c("\r  |", rep.int(" ", 50), sprintf("| %3d%%", round(count/max.iter)*100)), collapse = ""))
+        cat(paste(c("\r  |", rep.int(" ", 50), sprintf("| %3d%%", round(count / max.iter) * 100)), collapse = ""))
 
       }
-      if (count %% (round(max.iter/100, 0)) == 0) cat(paste(c("\r  |", rep.int("=", ceiling((count/max.iter)*50)), rep.int(" ", abs(50 - ceiling((count/max.iter)*50))), sprintf("| %3d%%", round((count/max.iter)*100))), collapse = ""))
+      if (count %% (round(max.iter / 100, 0)) == 0) cat(paste(c("\r  |",
+                                                              rep.int("=", ceiling((count / max.iter) * 50)),
+                                                              rep.int(" ", abs(50 - ceiling((count / max.iter) * 50))),
+                                                              sprintf("| %3d%%", round((count / max.iter) * 100))),
+                                                            collapse = ""))
       utils::flush.console()
       ########################
     }
@@ -108,7 +113,7 @@ readDAT <- function(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE, ID_var
 
     }
 
-    help3 <- help3[!is.na(help3[, 1]),]
+    help3 <- help3[!is.na(help3[, 1]), ]
 
     for (k in 1:nrow(help3)) {
       dat[j, help3[k, 1]] <- help3[k, 2]
@@ -119,7 +124,11 @@ readDAT <- function(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE, ID_var
 
     if (progress) {
       ## Fortschrittsbalken ##
-      if (count %% (round(max.iter/100, 0)) == 0) cat(paste(c("\r  |", rep.int("=", ceiling((count/max.iter)*50)), rep.int(" ", abs(50 - ceiling((count/max.iter)*50))), sprintf("| %3d%%", round((count/max.iter)*100))), collapse = ""))
+      if (count %% (round(max.iter / 100, 0)) == 0) cat(paste(c("\r  |",
+                                                          rep.int("=", ceiling((count / max.iter) * 50)),
+                                                          rep.int(" ", abs(50 - ceiling((count / max.iter) * 50))),
+                                                          sprintf("| %3d%%", round((count / max.iter) * 100))),
+                                                            collapse = ""))
       utils::flush.console()
       ########################
     }
@@ -129,15 +138,15 @@ readDAT <- function(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE, ID_var
   # convert numeric variables to numeric (read as character)
   for (i in 1:ncol(dat)) {
 
-    if (!any(is.na(as.numeric(dat[!is.na(dat[,i]),i])))) {
+    if (!any(is.na(as.numeric(dat[!is.na(dat[, i]), i])))) {
 
-      dat[,i] <- as.numeric(dat[,i])
+      dat[, i] <- as.numeric(dat[, i])
 
     }
 
   }
 
-  ind_complete <- unlist(apply(ind_mat[which(dat[,7] == "terminate"), ], 1, function(x) {seq(x[1], x[2])}))
+  ind_complete <- unlist(apply(ind_mat[which(dat[, 7] == "terminate"), ], 1, function(x) {seq(x[1], x[2])}))
 
   completes <- dat_file[ind_complete]
 
@@ -159,12 +168,12 @@ readDAT <- function(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE, ID_var
     ID_var <- "sys_internal"
   }
 
-  unique_completes <- cbind(dat[,7], dat[, ID_var], NA)
-  unique_completes[dat[,7] == "terminate", 3] <- duplicated(unique_completes[dat[,7] == "terminate", 2]) * 1
+  unique_completes <- cbind(dat[, 7], dat[, ID_var], NA)
+  unique_completes[dat[, 7] == "terminate", 3] <- duplicated(unique_completes[dat[, 7] == "terminate", 2]) * 1
 
-  dat$unique <- (as.numeric(unique_completes[,3]) == 0) * 1
+  dat$unique <- (as.numeric(unique_completes[, 3]) == 0) * 1
 
-  ind_unique <- unlist(apply(ind_mat[which(unique_completes[,3] == "0"), ], 1, function(x) {seq(x[1], x[2])}))
+  ind_unique <- unlist(apply(ind_mat[which(unique_completes[, 3] == "0"), ], 1, function(x) {seq(x[1], x[2])}))
 
   unique <- dat_file[ind_unique]
 

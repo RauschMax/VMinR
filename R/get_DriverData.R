@@ -57,32 +57,36 @@ get_DriverData <- function(dat_file = NULL, def_file = NULL, nlev = NULL, none =
   nseg <- def$nseg
   natt <- length(nlev)
 
-  col_dat <- 5 + sum(nlev) + none*1 + 1 + nseg
+  col_dat <- 5 + sum(nlev) + none * 1 + 1 + nseg
 
   ## read dat-file and label it in case of standard dat-file
-  dat <- matrix(scan(dat_file, quiet = TRUE), ncol=col_dat, byrow=TRUE)
+  dat <- matrix(scan(dat_file, quiet = TRUE), ncol = col_dat, byrow = TRUE)
   if (none) {
-    colnames(dat) <- c("ID", "RLH", "nAttr", "nLev", "nSeg", paste("Att", rep(sequence(natt), nlev), "Lev", sequence(nlev), sep=""), "none", "weight", paste("seg", 1:nseg, sep=""))
+    colnames(dat) <- c("ID", "RLH", "nAttr", "nLev", "nSeg",
+                       paste("Att", rep(sequence(natt), nlev), "Lev", sequence(nlev), sep = ""),
+                       "none", "weight", paste("seg", 1:nseg, sep = ""))
   }
   else {
-    colnames(dat) <- c("ID", "RLH", "nAttr", "nLev", "nSeg", paste("Att", rep(sequence(natt), nlev), "Lev", sequence(nlev), sep=""), "weight", paste("seg", 1:nseg, sep=""))
+    colnames(dat) <- c("ID", "RLH", "nAttr", "nLev", "nSeg",
+                       paste("Att", rep(sequence(natt), nlev), "Lev", sequence(nlev), sep = ""),
+                       "weight", paste("seg", 1:nseg, sep = ""))
   }
-  check1 <- length(def$att_List) == dat[1,3]
-  check2 <- sum(nlev) == dat[1,4]
+  check1 <- length(def$att_List) == dat[1, 3]
+  check2 <- sum(nlev) == dat[1, 4]
 
-  weight <- dat[,"weight"]
+  weight <- dat[, "weight"]
 
   ## define indicies of the utility values (with or without NONE)
-  ifelse(none, utils_ind <- 6:(sum(nlev)+6), utils_ind <- 6:(sum(nlev)+5))
+  ifelse(none, utils_ind <- 6:(sum(nlev) + 6), utils_ind <- 6:(sum(nlev) + 5))
 
   ## extract utilities to list
-  utils_list <- split(dat[,utils_ind], seq_along(dat[,1]))
+  utils_list <- split(dat[, utils_ind], seq_along(dat[, 1]))
 
   ## extract utilities to matrix
-  utils_mat <- dat[,utils_ind]
+  utils_mat <- dat[, utils_ind]
 
-  seg_ind <- which(colnames(dat) %in% paste("seg", 1:nseg, sep=""))
-  seg_dat <- dat[,seg_ind]
+  seg_ind <- which(colnames(dat) %in% paste("seg", 1:nseg, sep = ""))
+  seg_dat <- dat[, seg_ind]
 
   invisible(list(dat = dat,
                  utils_mat = utils_mat,
@@ -92,8 +96,8 @@ get_DriverData <- function(dat_file = NULL, def_file = NULL, nlev = NULL, none =
                  def = def,
                  nlev = nlev,
                  nseg = nseg,
-                 ID = dat[,1],
-                 RLH = dat[,2],
+                 ID = dat[, 1],
+                 RLH = dat[, 2],
                  check1 = check1,
                  check2 = check2))
 }

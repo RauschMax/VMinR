@@ -47,7 +47,7 @@ readHBU <- function(fileIN) {
 
   natt <- length(nlev)
 
-  effects_mat <- matrix(scan(fileIN, quiet = TRUE, skip = 2, nmax = natt*natt),
+  effects_mat <- matrix(scan(fileIN, quiet = TRUE, skip = 2, nmax = natt * natt),
                         ncol = natt, nrow = natt)
 
   hbu_labels <- scan(fileIN, quiet = TRUE, sep = "\n",

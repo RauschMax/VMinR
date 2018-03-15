@@ -43,7 +43,7 @@ VD.computeShares <- function(design, utils, nlev, weight = NULL, FC = FALSE, dum
   if (!dummy) dummy_design <- as.matrix(convertSSItoDesign(design, nlev = nlev))
   if (dummy) dummy_design <- design
 
-  if (is.null(weight)) weight = rep(1, dim(utils)[1])
+  if (is.null(weight)) weight <- rep(1, dim(utils)[1])
 
   xBeta <- t(dummy_design %*% t(utils))
 

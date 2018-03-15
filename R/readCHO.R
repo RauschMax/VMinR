@@ -34,7 +34,7 @@
 #' @export readCHO
 readCHO <- function(fileIN, progress = TRUE) {
 
-  cho_input <- utils::read.table(fileIN, fill=TRUE, header = FALSE)
+  cho_input <- utils::read.table(fileIN, fill = TRUE, header = FALSE)
 
   ## relevant for Fortschrittsbalken ##
   count <- 0
@@ -49,7 +49,7 @@ readCHO <- function(fileIN, progress = TRUE) {
   repeat {
 
     # 1st line of each respondent; info on ID, nsegs, nattr, nlevels, none
-    ind_info <- rbind(ind_info, cho_input[count1, which(!is.na(cho_input[count1,]))])
+    ind_info <- rbind(ind_info, cho_input[count1, which(!is.na(cho_input[count1, ]))])
 
     # index vector for the line wich gives the number of concepts per task
     nconc_ind <- count1 + 1 + (ind_info[nrow(ind_info), 2] != 0)
@@ -70,13 +70,14 @@ readCHO <- function(fileIN, progress = TRUE) {
     cho[[length(cho) + 1]] <- cho_input[cho_ind, 1]
 
     count0 <- count1
-    count1 <- count1 + (ind_info[nrow(ind_info), 2] != 0) + sum(nconc[[length(nconc)]]) + 2 * length(nconc[[length(nconc)]]) + 1
+    count1 <- count1 + (ind_info[nrow(ind_info), 2] != 0) +
+      sum(nconc[[length(nconc)]]) + 2 * length(nconc[[length(nconc)]]) + 1
 
     # index vector to read the design information (concepts shown per task)
     design_ind <- c(1:(count0 + (ind_info[nrow(ind_info), 2] != 0)), nconc_ind, cho_ind, count1:nrow(cho_input))
 
     # read the design information using the index vector
-    design <- rbind(design, cho_input[-design_ind,])
+    design <- rbind(design, cho_input[-design_ind, ])
 
     count <- count + 1
     if (progress) {
@@ -85,16 +86,21 @@ readCHO <- function(fileIN, progress = TRUE) {
 
         max.iter <- ceiling(nrow(cho_input) / (count1 - count0))
 
-        cat(paste(c("\r  |", rep.int(" ", 50), sprintf("| %3d%%", round(count/max.iter)*100)), collapse = ""))
+        cat(paste(c("\r  |", rep.int(" ", 50), sprintf("| %3d%%", round(count / max.iter) * 100)), collapse = ""))
 
       }
 
-      if (count %% (round(max.iter/100, 0)) == 0) cat(paste(c("\r  |", rep.int("=", ceiling((count/max.iter)*50)), rep.int(" ", abs(50 - ceiling((count/max.iter)*50))), sprintf("| %3d%%", round((count/max.iter)*100))), collapse = ""))
+      if (count %% (round(max.iter / 100, 0)) == 0) cat(paste(c("\r  |", rep.int("=", ceiling((count / max.iter) * 50)),
+                                                              rep.int(" ", abs(50 - ceiling((count / max.iter) * 50))),
+                                                              sprintf("| %3d%%", round((count / max.iter) * 100))),
+                                                            collapse = ""))
       utils::flush.console()
 
-      if(all(is.na(cho_input[count1,]))) {
+      if (all(is.na(cho_input[count1, ]))) {
 
-        if (50 - ceiling((count/max.iter)*50) < 0) cat("\n number of concepts/tasks differ between respondents (e.g. ACBC) \n")
+        if (50 - ceiling((count / max.iter) * 50) < 0) {
+          cat("\n number of concepts/tasks differ between respondents (e.g. ACBC) \n")
+        }
 
         break
 
@@ -108,7 +114,7 @@ readCHO <- function(fileIN, progress = TRUE) {
   design <- design[, apply(design, 2, function(x) {all(!is.na(x))})]
 
   # create ID vector
-  ID <- ind_info[,1]
+  ID <- ind_info[, 1]
 
   # design including "sequential version number", "ID", "task", "concept"
   design_out <- cbind(rep(seq_along(ind_info[, 1]), unlist(lapply(nconc, sum))),
