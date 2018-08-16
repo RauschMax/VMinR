@@ -5,7 +5,7 @@
 \title{Calib EXE}
 \usage{
 calibEXE(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42,
-  nlev = NULL)
+  nlev = NULL, PIsteps = c(0.95, 0.5, 0.3, 0.15, 0.05))
 }
 \arguments{
 \item{BWconcepts}{A matrix/data.frame containing the best and worst concepts per respondents.}
@@ -18,6 +18,9 @@ for the best/worst concepts.}
 \item{cut}{An integer value indicating the maximal value for utilities after calibration.}
 
 \item{nlev}{A vector indicating the number of levels per attribute}
+
+\item{PIsteps}{A vector with the purchse intention %-value to be used for the calibration
+(default: \code{c(.95, .5, .3, .15, .05)})}
 }
 \value{
 A list including 13 elements

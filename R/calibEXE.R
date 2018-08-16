@@ -9,6 +9,8 @@
 #' @param utils A matrix containing the utilities per respondent of the model.
 #' @param cut An integer value indicating the maximal value for utilities after calibration.
 #' @param nlev A vector indicating the number of levels per attribute
+#' @param PIsteps A vector with the purchse intention %-value to be used for the calibration
+#' (default: \code{c(.95, .5, .3, .15, .05)})
 #' @return A list including 13 elements
 #' \item{BWconcepts}{A matrix/data.frame containing the best and worst concepts per respondents
 #' which have been passed to the function}
@@ -47,7 +49,8 @@
 
 
 
-calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev = NULL) {
+calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev = NULL,
+                     PIsteps = c(.95, .5, .3, .15, .05)) {
   # some checks ----
   if (is.null(BWconcepts)) stop("Please provide best and worst concepts!")
   if (is.null(PI)) stop("Please provide purchase intention for best and worst concepts!")
@@ -79,15 +82,17 @@ calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev 
   utl_sum[!check_order, 2] <- utl_sum[!check_order, 1] - 0.001
 
   # rescale 5 point scale to %-values ----
-  #
+  # DEFAULT
   # 1 --> 0.95  definitly would buy
   # 2 --> 0.50
   # 3 --> 0.30
   # 4 --> 0.15
   # 5 --> 0.05  definitely would not buy
 
-  PurchaseInt_best <- unlist(lapply(as.integer(PI[, 1]), switch, .95, .5, .3, .15, .05))
-  PurchaseInt_worst <- unlist(lapply(as.integer(PI[, 2]), switch, .95, .5, .3, .15, .05))
+  PurchaseInt_best <- unlist(lapply(as.integer(PI[, 1]), switch,
+                                    PIsteps[1], PIsteps[2], PIsteps[3], PIsteps[4], PIsteps[5]))
+  PurchaseInt_worst <- unlist(lapply(as.integer(PI[, 2]), switch,
+                                     PIsteps[1], PIsteps[2], PIsteps[3], PIsteps[4], PIsteps[5]))
 
   check_recode <- cbind(PI[, 1], PurchaseInt_best,
                         PI[, 2], PurchaseInt_worst)
@@ -101,13 +106,8 @@ calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev 
   PurchaseInt[!check_order_PI, 2] <- PurchaseInt[!check_order_PI, 1]
 
   # logit transformation ----
-  # logitPI_best <- log(PurchaseInt_best / (1 - PurchaseInt_best))
-  # logitPI_worst <- log(PurchaseInt_worst / (1 - PurchaseInt_worst))
 
   logit_PurchaseInt <- log(PurchaseInt / (1 - PurchaseInt))
-
-  # linear regression - purchase intention vs. utility sums ----
-  # y = a + b * x; utl_sum = a + b * PI
 
   lm_data <- data.frame(logPI = as.vector(t(logit_PurchaseInt)),
                         x = as.vector(t(utl_sum)))
@@ -121,21 +121,6 @@ calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev 
 
   a <- lm_coeff[, 1]
   b <- lm_coeff[, 2]
-
-  # # b = sum((x - mean(x)) * (y - mean(y))) / sum((x - mean(x))^2) ----
-  # b <- apply((utl_sum - apply(utl_sum, 1, mean)) *
-  #              (logit_PurchaseInt - apply(logit_PurchaseInt, 1, mean)), 1, sum) /
-  #   apply(((logit_PurchaseInt - apply(logit_PurchaseInt, 1, mean))^2), 1, sum)
-  #
-  # # set missings to 0 - missings appear when worst concept == best concept
-  # b[is.na(b)] <- 0
-  # b
-
-  # # a = mean(y) - b * mean(x) ----
-  # a <- apply(utl_sum, 1, mean) - b * apply(logit_PurchaseInt, 1, mean)
-
-  # CALIBRATION STEP ----
-  # y = b * x + a / natt
 
   # calibrated utilities - calib.exe ----
   utils_calib <- utils * b + a / natt
@@ -160,6 +145,7 @@ calibEXE <- function(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42, nlev 
                  a = a,
                  b = b,
                  nlev = nlev,
-                 cut = cut))
+                 cut = cut,
+                 PIsteps = PIsteps))
 
 }
