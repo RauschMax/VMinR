@@ -12,6 +12,8 @@
 #' @param cut An integer value indicating the maximal value for utilities after calibration.
 #' (required for \code{\link{calibEXE}})
 #' @param ID A string indicating the name of teh ID variable in the SPSS dataset - default = \code{"Respondent_Serial"}.
+#' @param PIsteps A vector with the purchse intention %-value to be used for the calibration
+#' (default: \code{c(.95, .5, .3, .15, .05)})
 #' @return A list including 13 elements
 #' \item{call}{A string returning the call including the inputs}
 #' \item{calibData}{A list with the values of the \code{\link{calibEXE}} call.
@@ -46,7 +48,8 @@
 
 
 ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TRUE,
-                            nlev = NULL, cut = 42, ID = "Respondent_Serial") {
+                            nlev = NULL, cut = 42, ID = "Respondent_Serial",
+                            PIsteps = c(.95, .5, .3, .15, .05)) {
   # some checks ----
   if (is.null(dat)) stop("Please provide the path and filename of the ValueDriver dat-file!")
   if (is.null(def)) stop("Please provide the path and filename of the ValueDriver def-file!")
@@ -90,7 +93,8 @@ ConceptOpt_ISBC <- function(dat = NULL, def = NULL, FrameData = NULL, calib = TR
                                                       paste0("W_Att_", sequence(natt)))],
                           PI = BWconcepts[, c("PI_B", "PI_W")],
                           utils = dat_input$utils_mat,
-                          cut = cut, nlev = nlev)
+                          cut = cut, nlev = nlev,
+                          PIsteps = PIsteps)
   }
 
   # create all possible concepts

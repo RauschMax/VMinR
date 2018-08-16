@@ -5,7 +5,8 @@
 \title{Concept optimization with ISBC}
 \usage{
 ConceptOpt_ISBC(dat = NULL, def = NULL, FrameData = NULL, calib = TRUE,
-  nlev = NULL, cut = 42, ID = "Respondent_Serial")
+  nlev = NULL, cut = 42, ID = "Respondent_Serial", PIsteps = c(0.95,
+  0.5, 0.3, 0.15, 0.05))
 }
 \arguments{
 \item{dat}{A string indicating the path/filename of the ValueDriver dat-file.}
@@ -23,6 +24,9 @@ intention - default = \code{TRUE}.}
 (required for \code{\link{calibEXE}})}
 
 \item{ID}{A string indicating the name of teh ID variable in the SPSS dataset - default = \code{"Respondent_Serial"}.}
+
+\item{PIsteps}{A vector with the purchse intention %-value to be used for the calibration
+(default: \code{c(.95, .5, .3, .15, .05)})}
 }
 \value{
 A list including 13 elements
