@@ -54,7 +54,7 @@
 #' @export VP.computeShares
 VP.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev,
                              weight = NULL, none = FALSE, iaw = NULL, FC = FALSE) {
-  if(is.null(simSKUs)) ifelse(length(simPrices) == dim(prices)[1],
+  if (is.null(simSKUs)) ifelse(length(simPrices) == dim(prices)[1],
                               simSKUs <- seq_along(simPrices),
                               stop("We need to know the SKUs to be simulated please!"))
 
@@ -65,8 +65,8 @@ VP.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev,
     iaw <- t(iaw[, ind_iaw])
   }
 
-  price_ind <- matrix(seq(1, dim(prices)[1] * dim(prices)[2]) + dim(prices)[1],
-                      nrow = dim(prices)[1], ncol = dim(prices)[2], byrow = TRUE)
+  # price_ind <- matrix(seq(1, dim(prices)[1] * dim(prices)[2]) + dim(prices)[1],
+  #                     nrow = dim(prices)[1], ncol = dim(prices)[2], byrow = TRUE)
 
   base_pr_lev <- rep(NA, dim(prices)[1])
   for (i in seq_along(simSKUs)) {
@@ -76,8 +76,8 @@ VP.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev,
 
 
   if (length(simSKUs) == 1) {
-    designHelp <- c(simSKUs,
-                        diag(nlev[1])[simSKUs, ] * base_pr_lev[simSKUs])
+    designHelp <- t(as.matrix(c(simSKUs,
+                                diag(nlev[1])[simSKUs, ] * base_pr_lev[simSKUs])))
   } else {
     designHelp <- cbind(simSKUs,
                         diag(nlev[1])[simSKUs, ] * base_pr_lev[simSKUs])
