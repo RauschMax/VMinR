@@ -55,7 +55,7 @@ VD.read_def <- function(file, nlev) {
   help_seg_ind <- cbind(which(!seg_ind_BIN) + 1, c(which(!seg_ind_BIN)[-1] - 1, length(def)))
   seg_lev_ind <- apply(help_seg_ind, 1, function(x) {seq(x[1], x[2])})
 
-  if (!is.list(seg_lev_ind)) seg_lev_ind <- list(seg_lev_ind)
+  if (!is.list(seg_lev_ind)) seg_lev_ind <- as.list(data.frame(seg_lev_ind))
 
   help_list <- lapply(seg_lev_ind, function(x) {def[x]})
 
