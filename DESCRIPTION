@@ -1,9 +1,9 @@
 Package: VMinR
 Type: Package
 Title: The package contains a set of functions which are required in a ValueManager study
-Version: 1.1.0
+Version: 1.2.0
 Author: Maximilian Rausch
-Maintainer: Maximilian Rausch <maximilian.rausch@tns-infratest.com>
+Maintainer: Maximilian Rausch <maximilian.rausch@bms-net.de>
 Description: The package contains a set of functions which are required in a ValueManager study.
     Importing data, simulating shares, etc.
 License: file LICENSE
