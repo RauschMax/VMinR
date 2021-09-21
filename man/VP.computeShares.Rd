@@ -4,8 +4,17 @@
 \alias{VP.computeShares}
 \title{Compute ValuePricer shares}
 \usage{
-VP.computeShares(utils, prices, simPrices, simSKUs = NULL, nlev,
-  weight = NULL, none = FALSE, iaw = NULL, FC = FALSE)
+VP.computeShares(
+  utils,
+  prices,
+  simPrices,
+  simSKUs = NULL,
+  nlev,
+  weight = NULL,
+  none = FALSE,
+  iaw = NULL,
+  FC = FALSE
+)
 }
 \arguments{
 \item{utils}{A matrix containing the utilities}

@@ -4,8 +4,11 @@
 \alias{summary_calibEXE}
 \title{Summary of calibEXE}
 \usage{
-summary_calibEXE(calibData = calibData, outfile = "summary.txt",
-  infile = "INFILE")
+summary_calibEXE(
+  calibData = calibData,
+  outfile = "summary.txt",
+  infile = "INFILE"
+)
 }
 \arguments{
 \item{calibData}{A list containing the results of \code{\link{calibEXE}}}

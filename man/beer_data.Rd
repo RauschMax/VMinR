@@ -4,7 +4,8 @@
 \name{beer_data}
 \alias{beer_data}
 \title{VM test data - ValuePricer "beer study""}
-\format{A list with the data of the beer study.  \describe{ \item{dat}{A
+\format{
+A list with the data of the beer study.  \describe{ \item{dat}{A
 matrix of the imported dat-file} \item{utils_mat}{A matrix including the
 utilities from the dat file} \item{utils_list}{A list including the
 individual utilities from the dat file. One list element per respondent}
@@ -19,7 +20,8 @@ used in the model} \item{pr_range_mat}{A matrix containing the minimal and
 maximal prices per SKU used in the model} \item{SKUs}{A vector containing
 the SKU labels from the def-file.} \item{nlev}{A vector containing the
 number of levels per attribute.} \item{ID}{A vector containing the ID per
-respondent} }}
+respondent} }
+}
 \description{
 Dataset containing the variable contents (data model) settings to perform
 input validation.

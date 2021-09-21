@@ -4,8 +4,14 @@
 \alias{writeCHO}
 \title{Read Sawtooth CHO file}
 \usage{
-writeCHO(export_file = "outfile.cho", design_out, ind_info_OUT, nconc, cho,
-  progress = TRUE)
+writeCHO(
+  export_file = "outfile.cho",
+  design_out,
+  ind_info_OUT,
+  nconc,
+  cho,
+  progress = TRUE
+)
 }
 \arguments{
 \item{export_file}{A string with the file name to be writen to incl. path

@@ -4,8 +4,13 @@
 \alias{correlation_HeatMap}
 \title{Correlation heatmap}
 \usage{
-correlation_HeatMap(input_file = NULL, sepOUT = ";", decOUT = ",",
-  usedraws = FALSE, clustered = FALSE)
+correlation_HeatMap(
+  input_file = NULL,
+  sepOUT = ";",
+  decOUT = ",",
+  usedraws = FALSE,
+  clustered = FALSE
+)
 }
 \arguments{
 \item{input_file}{the path to the heatmap input file. A specific file which

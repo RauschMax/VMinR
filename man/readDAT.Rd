@@ -4,8 +4,15 @@
 \alias{readDAT}
 \title{Read Sawtooth DAT file}
 \usage{
-readDAT(inFILE, exportCOMPLETES = FALSE, exportUNIQUE = TRUE,
-  ID_var = "r", out_unique = NULL, out_COMP = NULL, progress = TRUE)
+readDAT(
+  inFILE,
+  exportCOMPLETES = FALSE,
+  exportUNIQUE = TRUE,
+  ID_var = "r",
+  out_unique = NULL,
+  out_COMP = NULL,
+  progress = TRUE
+)
 }
 \arguments{
 \item{inFILE}{A string with the file name to be imported incl. path (if

@@ -4,8 +4,14 @@
 \alias{calibEXE}
 \title{Calib EXE}
 \usage{
-calibEXE(BWconcepts = NULL, PI = NULL, utils = NULL, cut = 42,
-  nlev = NULL, PIsteps = c(0.95, 0.5, 0.3, 0.15, 0.05))
+calibEXE(
+  BWconcepts = NULL,
+  PI = NULL,
+  utils = NULL,
+  cut = 42,
+  nlev = NULL,
+  PIsteps = c(0.95, 0.5, 0.3, 0.15, 0.05)
+)
 }
 \arguments{
 \item{BWconcepts}{A matrix/data.frame containing the best and worst concepts per respondents.}

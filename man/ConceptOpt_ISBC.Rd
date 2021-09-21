@@ -4,9 +4,16 @@
 \alias{ConceptOpt_ISBC}
 \title{Concept optimization with ISBC}
 \usage{
-ConceptOpt_ISBC(dat = NULL, def = NULL, FrameData = NULL, calib = TRUE,
-  nlev = NULL, cut = 42, ID = "Respondent_Serial", PIsteps = c(0.95,
-  0.5, 0.3, 0.15, 0.05))
+ConceptOpt_ISBC(
+  dat = NULL,
+  def = NULL,
+  FrameData = NULL,
+  calib = TRUE,
+  nlev = NULL,
+  cut = 42,
+  ID = "Respondent_Serial",
+  PIsteps = c(0.95, 0.5, 0.3, 0.15, 0.05)
+)
 }
 \arguments{
 \item{dat}{A string indicating the path/filename of the ValueDriver dat-file.}

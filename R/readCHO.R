@@ -106,6 +106,12 @@ readCHO <- function(fileIN, progress = TRUE) {
 
       }
       ## Fortschrittsbalken - ENDE ##
+    } else {
+
+      if (all(is.na(cho_input[count1, ]))) {
+        break
+      }
+
     }
 
   }

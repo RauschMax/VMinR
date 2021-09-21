@@ -4,8 +4,7 @@
 \alias{VD.computeShares}
 \title{Compute ValueDriver shares}
 \usage{
-VD.computeShares(design, utils, nlev, weight = NULL, FC = FALSE,
-  dummy = TRUE)
+VD.computeShares(design, utils, nlev, weight = NULL, FC = FALSE, dummy = TRUE)
 }
 \arguments{
 \item{design}{A matrix containing the design including the concepts to
