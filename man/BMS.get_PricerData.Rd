@@ -30,8 +30,7 @@ A list including elements
   \item{ID}{A vector containing the ID per respondent}
 }
 \description{
-Imports the dat/def files for a BMS Pricer study and extracts the relevant
-information.
+Imports the dat/def files for a BMS Pricer study and extracts the relevant information.
 }
 \examples{
 
