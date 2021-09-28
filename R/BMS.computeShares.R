@@ -7,7 +7,7 @@
 #'
 #'
 #' @param utils A matrix containing the utilities
-#' @param prices A matrix containing the prices used in the interview
+#' @param prices A list containing the prices used in the interview
 #' @param simPrices A vector containing the prices to be used in the simulated scenario
 #' @param simSKUs A vector containing indicies of the SKUs to be used in the simulated scenario
 #' @param nlev An vector indicating the number of levels per attribute
@@ -66,8 +66,8 @@ BMS.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev,
   price_min <- sapply(prices, min)
 
   failPrice <- FALSE
-  if (any(price_max[simSKUs] < simPrices)) failPrice <- TRUE
-  if (any(price_min[simSKUs] > simPrices)) failPrice <- TRUE
+  if (any(price_max[simSKUs] < simPrices[simSKUs])) failPrice <- TRUE
+  if (any(price_min[simSKUs] > simPrices[simSKUs])) failPrice <- TRUE
 
   if (failPrice) stop("\nCheck simPrices (index referring to simSKUs):\n",
                       "These Price(s) are larger than the MAX price of their SKU:\n",
