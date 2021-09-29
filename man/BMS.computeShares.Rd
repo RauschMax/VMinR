@@ -19,7 +19,7 @@ BMS.computeShares(
 \arguments{
 \item{utils}{A matrix containing the utilities}
 
-\item{prices}{A matrix containing the prices used in the interview}
+\item{prices}{A list containing the prices used in the interview}
 
 \item{simPrices}{A vector containing the prices to be used in the simulated scenario}
 

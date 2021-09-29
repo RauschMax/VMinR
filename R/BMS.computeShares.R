@@ -58,7 +58,7 @@ BMS.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev,
   }
 
   if (!is.null(iaw)) {
-    ind_iaw <- switch(none + 1, simSKUs, c(simSKUs, dim(prices)[1] + 1))
+    ind_iaw <- switch(none + 1, simSKUs, c(simSKUs, length(prices) + 1))
     iaw <- t(iaw[, ind_iaw])
   }
 

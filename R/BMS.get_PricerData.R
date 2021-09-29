@@ -99,7 +99,7 @@ BMS.get_PricerData <- function(dat_file = NULL, def_file = NULL, none = TRUE) {
                  seg = seg_dat,
                  weight = weight,
                  def = def,
-                 priceList = def$priceList,
+                 priceList = def$prices,
                  SKUs = def$brands,
                  nlev = nlev,
                  ID = dat[, 1]))
