@@ -40,7 +40,10 @@
 #' }
 #'
 #' @export get_DriverData
-get_DriverData <- function(dat_file = NULL, def_file = NULL, nlev = NULL, none = TRUE) {
+get_DriverData <- function(dat_file = NULL,
+                           def_file = NULL,
+                           nlev = NULL,
+                           none = NULL) {
 
   if (is.null(dat_file)) {
     stop("You need to specifiy a dat-file")
@@ -48,12 +51,16 @@ get_DriverData <- function(dat_file = NULL, def_file = NULL, nlev = NULL, none =
   if (is.null(def_file)) {
     stop("You need to specifiy a def-file")
   }
-  if (is.null(nlev)) {
-    stop("You need to specifiy the number of levels per attribute")
-  }
 
   ## read def-file
   def <- VD.read_def(def_file, nlev)
+  if (is.null(nlev)) {
+    nlev <- def$nlev
+  }
+  if (is.null(none)) {
+    none <- def$none
+  }
+
   nseg <- def$nseg
   natt <- length(nlev)
 
@@ -77,7 +84,11 @@ get_DriverData <- function(dat_file = NULL, def_file = NULL, nlev = NULL, none =
   weight <- dat[, "weight"]
 
   ## define indicies of the utility values (with or without NONE)
-  ifelse(none, utils_ind <- 6:(sum(nlev) + 6), utils_ind <- 6:(sum(nlev) + 5))
+  if (none) {
+    utils_ind <- 6:(sum(nlev) + 6)
+  } else {
+    utils_ind <- 6:(sum(nlev) + 5)
+  }
 
   ## extract utilities to list
   utils_list <- split(dat[, utils_ind], seq_along(dat[, 1]))

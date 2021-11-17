@@ -2,6 +2,7 @@
 
 export(BMS.computeShares)
 export(BMS.get_PricerData)
+export(BMS.read_batchfile)
 export(BMS.read_def)
 export(ConceptOpt_ISBC)
 export(VD.computeShares)

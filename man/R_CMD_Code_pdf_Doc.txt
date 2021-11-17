@@ -1,2 +1,0 @@
-cd C:\Program Files\R\R-4.1.0\bin
-R CMD Rd2pdf C:\02_RnD\R_Codes_Shiny_Apps\VMinR

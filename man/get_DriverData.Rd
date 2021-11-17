@@ -4,7 +4,7 @@
 \alias{get_DriverData}
 \title{Import ValueDriver data and definitions}
 \usage{
-get_DriverData(dat_file = NULL, def_file = NULL, nlev = NULL, none = TRUE)
+get_DriverData(dat_file = NULL, def_file = NULL, nlev = NULL, none = NULL)
 }
 \arguments{
 \item{dat_file}{A string value with the path to the DAT file to import.}

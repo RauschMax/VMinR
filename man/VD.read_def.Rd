@@ -4,7 +4,7 @@
 \alias{VD.read_def}
 \title{Read ValueDriver definitions file}
 \usage{
-VD.read_def(file, nlev)
+VD.read_def(file, nlev = NULL)
 }
 \arguments{
 \item{file}{A string value with the path to the DEF file to import.}
@@ -12,13 +12,14 @@ VD.read_def(file, nlev)
 \item{nlev}{A vector indicating the number of levels per attribute}
 }
 \value{
-A list including elements \item{att_List}{A list containing one
-element per attribute which contains a vector of the levels} \item{nlev}{A
-vector indicating the number of levels per attribute} \item{natt}{A variable
-returning the number of attributes} \item{def}{A list containg the
-labels of the segment data (variable names and levels)} \item{nseg}{A
-variable returning the number of segments} \item{file_in}{A string value
-with the path to the DEF file which was passed to the function.}
+A list including elements
+  \item{att_List}{A list containing one element per attribute which contains a vector of the levels}
+  \item{nlev}{A vector indicating the number of levels per attribute}
+  \item{natt}{A variable returning the number of attributes}
+  \item{none}{A boolean variable TRUE if none is included in def file}
+  \item{def}{A list containg the labels of the segment data (variable names and levels)}
+  \item{nseg}{A variable returning the number of segments}
+  \item{file_in}{A string value with the path to the DEF file which was passed to the function.}
 }
 \description{
 Reads the ValueDriver def file containing the definition (e.g. labels,
