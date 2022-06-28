@@ -28,26 +28,30 @@ BMS.read_batchfile <- function(file) {
                                    rowIndex = 5,
                                    header = FALSE)
   scenNames <- unlist(helpScenNames[, -(1:2)])
+  scenNames <- gsub("\n", " ", scenNames[!is.na(scenNames)])
 
   # Scenario Cluster
   helpScenClustering <- xlsx::read.xlsx(file,
                                         sheetName = "Scenarios",
-                                        rowIndex = 9,
+                                        rowIndex = 7,
                                         header = FALSE)
-  scenCluster <- unlist(helpScenClustering)
+  scenCluster <- unlist(helpScenClustering[, -(1:2)])
+  scenCluster <- scenCluster[!is.na(scenCluster)]
 
   # Scenario Segments
   helpScenSegment1 <- xlsx::read.xlsx(file,
                                       sheetName = "Scenarios",
-                                      rowIndex = 11,
+                                      rowIndex = 10,
                                       header = FALSE)
   scenSegment <- unlist(helpScenSegment1)
+  scenSegment <- scenSegment[!is.na(scenSegment)]
 
   helpScenSegment2 <- xlsx::read.xlsx(file,
                                       sheetName = "Scenarios",
-                                      rowIndex = 13,
+                                      rowIndex = 12,
                                       header = FALSE)
-  scenSegmentLevel <- unlist(helpScenSegment2)
+  scenSegmentLevel <- unlist(helpScenSegment2[, -1])
+  scenSegmentLevel <- scenSegmentLevel[!is.na(scenSegmentLevel)]
 
   # Scenario Weight
   helpScenWeight <- xlsx::read.xlsx(file,
