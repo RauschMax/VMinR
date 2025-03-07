@@ -1,15 +1,21 @@
 Package: VMinR
 Type: Package
 Title: The package contains a set of functions which are required in a conjoint study
-Version: 1.4.0
+Version: 1.4.2
 Author: Maximilian Rausch
 Maintainer: Maximilian Rausch <maximilian.rausch@bms-net.de>
 Description: The package contains a set of functions which are required in a conjoint study.
     Importing data, simulating shares, etc.
-License: file LICENSE
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.3.1
 Depends: R (>= 2.10)
-Imports: data.table, corrgram, AlgDesign, ggplot2, foreign, xlsx, openxlsx
+Imports: data.table, 
+        corrgram, 
+        AlgDesign, 
+        ggplot2, 
+        foreign, 
+        openxlsx,
+        shiny
 Suggests: testthat

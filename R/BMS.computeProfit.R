@@ -1,9 +1,6 @@
-# function computes shares for a BMS Pricer study - First Choice and Preference Share
-
-#' Compute BMS Pricer shares
+#' Compute profit for a BMS Pricer study
 #'
-#' Calculates the shares (first choice or preference share) for a BMS Pricer
-#' like study.
+#' Calculates the profit for a BMS Pricer like study.
 #'
 #'
 #' @param utils A matrix containing the utilities
@@ -18,38 +15,32 @@
 #' the respective matrices need to be multiplied before passing to this function.
 #' @param FC A boolean variable indicating if first choice simulation should be used (\code{FALSE} indicates
 #' preference share simulation) - default \code{TRUE}
+#' @param costs A vector indicating the costs per SKU in the model.
 #' @return A list including elements
-#'   \item{ind_sim}{individual shares for each respondent}
-#'   \item{Xbeta}{\code{X * beta} matrix used to calculate the shares (utility sums).}
-#'   \item{simPrices}{respective input object passed through}
-#'   \item{simSKUs}{respective input object passed through}
-#'   \item{prices}{respective input object passed through}
-#'   \item{iaw}{respective input object passed through}
-#'   \item{none}{respective input object passed through}
-#'   \item{weight}{respective input object passed through}
-#'   \item{simShares}{aggregated shares accross all respondents}
-#' @author Maximilian Rausch - Maximilian.Rausch@@bms-net.de
+#'   \item{profit}{mean profit across all respondents}
+#'   \item{demand}{mean share of the scenario across all respondents}
+#' @author Maximilian Rausch - m.rauschh@@bms-net.de
 #' @examples
 #'
-#' \dontrun{
 #' beer_def <- beer_data$def
 #'
-#' sim_Beer <- BMS.computeShares(beer_data$utils_mat,
-#'                              beer_def$prices,
-#'                              beer_def$prices[,3],
-#'                              simSKUs = NULL,
-#'                              nlev = beer_data$nlev,
-#'                              weight = beer_data$weight,
-#'                              none = FALSE,
-#'                              iaw = NULL,
-#'                              FC = FALSE)
+#' profit_Beer <- VP.computeProfit(beer_data$utils_mat,
+#'                                 beer_def$prices,
+#'                                 beer_def$prices[,3],
+#'                                 simSKUs = NULL,
+#'                                 nlev = beer_data$nlev,
+#'                                 weight = beer_data$weight,
+#'                                 none = FALSE,
+#'                                 iaw = NULL,
+#'                                 FC = FALSE,
+#'                                 costs = 0.6 * beer_def$prices[,3])
 #'
-#' round(sim_Beer$simShares, 3)
-#' }
+#' profit_Beer$profit
 #'
-#' @export BMS.computeShares
-BMS.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev,
-                             weight = NULL, none = FALSE, iaw = NULL, FC = FALSE) {
+#' @export BMS.computeProfit
+
+BMS.computeProfit <- function(utils, prices, simPrices, simSKUs = NULL, nlev, weight = NULL, none = FALSE,
+                             iaw = NULL, FC = FALSE, costs) {
   if (is.null(simSKUs)) stop("We need to know the SKUs to be simulated please!")
 
   if (is.null(weight)) {
@@ -57,9 +48,9 @@ BMS.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev,
     cat("No weight supplied. Weight is set to 1.\n")
   }
 
+  ind_SKUnone <- switch(none + 1, simSKUs, c(simSKUs, length(prices) + 1))
   if (!is.null(iaw)) {
-    ind_iaw <- switch(none + 1, simSKUs, c(simSKUs, length(prices) + 1))
-    iaw <- t(iaw[, ind_iaw])
+    iaw <- t(iaw[, ind_SKUnone])
   }
 
   price_max <- sapply(prices, max)
@@ -85,10 +76,11 @@ BMS.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev,
   for (i in seq_along(simSKUs)) {
     if (length(prices[[simSKUs[i]]]) == 1) {
       base_pr_lev[simSKUs[i]] <- 1
-    } else {
+    }
+    else {
       base_pr_lev[simSKUs[i]] <- stats::approx(prices[[simSKUs[i]]],
-                                               seq_along(prices[[simSKUs[i]]]),
-                                               xout = simPrices[simSKUs[i]])$y
+                                             seq_along(prices[[simSKUs[i]]]),
+                                             xout = simPrices[simSKUs[i]])$y
     }
   }
 
@@ -100,7 +92,7 @@ BMS.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev,
     designHelp <- cbind(simSKUs,
                         diag(nlev[1])[simSKUs, ] * base_pr_lev[simSKUs])
   }
-  base_design_close <- as.matrix(cbind(convertSSItoDesign(designHelp,
+  base_design_close <- as.matrix(cbind(VMinR::convertSSItoDesign(designHelp,
                                                           nlev = nlev), 0))
 
   row_interpol <- which(base_pr_lev[simSKUs] %% 1 != 0)
@@ -143,13 +135,14 @@ BMS.computeShares <- function(utils, prices, simPrices, simSKUs = NULL, nlev,
     }
   }
 
-  invisible(list(ind_sim = sim,
-                 Xbeta = Xbeta,
-                 simPrices = simPrices,
-                 simSKUs = simSKUs,
-                 prices = prices,
-                 iaw = iaw,
-                 none = none,
-                 weight = weight,
-                 simShares = apply(as.matrix(sim), 1, stats::weighted.mean, w = weight)))
+  rownames(sim) <- gsub("iaw", "SKU", rownames(sim))
+
+  profits <- apply(as.matrix(sim), 1,
+                   stats::weighted.mean, w = weight) * (simPrices - costs)[ind_SKUnone]
+
+  demand <- apply(as.matrix(sim), 1,
+                  stats::weighted.mean, w = weight)
+
+  list(profits = profits,
+       demand = demand)
 }
