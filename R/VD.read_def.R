@@ -38,8 +38,22 @@ VD.read_def <- function(file, nlev = NULL) {
                    function(i) {
                      out <- defHelp[(attInd[i - 1] + 1):(attInd[i] - 1)]
                      out <- sub("^[ ]", "", out)
-                     out <- sub(" [{].*[}]", "", out)
+                     # out <- sub(" [{].*[}]", "", out)
                    })
+
+  numAtt <-   lapply(levDef,
+                     function(x) {
+                       checkNum <- all(grepl(" [{].*[}]", x))
+                       if (checkNum) {
+                         out <- as.numeric(sub("[}].*", "",
+                                               sub(".*[{]", "",
+                                                   x)))
+                       } else {
+                         out <- NA
+                       }
+                       out
+                     })
+
 
   if (is.null(nlev)) {
     nlev <- sapply(levDef, length)
@@ -49,19 +63,11 @@ VD.read_def <- function(file, nlev = NULL) {
 
   natt <- length(nlev)
 
-  att_List <- levDef
+  att_List <- lapply(levDef,
+                     function(x) {
+                       sub(" [{].*[}]", "", x)
+                     })
   names(att_List) <- defHelp[grep("^[^ ]", defHelp)]
-
-  # att_List <- vector("list", length = natt)
-  #
-  # help <- cumsum(c(2, nlev + 1))
-  # help_start <- (help + 1)[-(natt + 1)]
-  # help_end <- (help - 1)[2:(natt + 1)]
-  #
-  # for (i in sequence(natt)) {
-  #   names(att_List)[i] <- def[help[i]]
-  #   att_List[[i]] <- sub("^ {1,}", "", def[help_start[i]:help_end[i]])
-  # }
 
   seg_part <- c((which(def == "[Segmente]") + 1):(which(def == "[FIXED]") - 1))
 
@@ -79,16 +85,13 @@ VD.read_def <- function(file, nlev = NULL) {
   help_list <- lapply(seg_lev_ind, function(x) {def[x]})
 
   def_lev <- lapply(help_list, function(x) {
-    # out <- unlist(lapply(strsplit(x, " "),
-    #                      function(y) {
-    #                        paste(y[-1], collapse = " ")
-    #                      }))
     out <- sub("^[ ]", "", x)
     out
   })
   names(def_lev) <- def_lab
 
   return(list(att_List = att_List,
+              num_att = numAtt,
               nlev = nlev,
               natt = natt,
               none = none,

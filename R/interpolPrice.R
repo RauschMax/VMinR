@@ -57,7 +57,7 @@
 #' scenINTER
 #' }
 #'
-#' @export StrategyProfile
+#' @export interpolPrice
 interpolPrice <- function(
     scenario,
     priceSim,
@@ -69,26 +69,40 @@ interpolPrice <- function(
     scenInd = 1,
     brandAtt = 1) {
 
+
   base_pr_lev <- rep(0, length(priceInd))
 
-  brandInd <- scenario[scenInd, brandAtt]
+  if (is.null(brandAtt)) brandAtt <- 1
 
-  base_pr_lev[brandInd] <- stats::approx(prices[[brandInd]],
-                                         seq_along(prices[[brandInd]]),
+  brandInd <- scenario[scenInd, brandAtt]
+  if (length(prices) == 1) {
+    priceHelp <- 1
+  } else {
+    priceHelp <- scenario[scenInd, brandAtt]
+  }
+
+  min_val <- min(prices[[priceHelp]])
+  max_val <- max(prices[[priceHelp]])
+
+  if (priceSim < min_val | priceSim > max_val) stop(paste("The price needs to be within the range.",
+                                                          "No extrapolation possible!"))
+
+  base_pr_lev[priceHelp] <- stats::approx(prices[[priceHelp]],
+                                         seq_along(prices[[priceHelp]]),
                                          xout = priceSim)$y
 
   designHelp <- t(as.matrix(c(brandInd,
-                              diag(nlev[brandAtt])[brandInd, ] * base_pr_lev[brandInd])))
+                              diag(nlev[brandAtt])[brandInd, ] * base_pr_lev[priceHelp])))
 
 
   base_design_close <- convertSSItoDesign(t(base_pr_lev),
                                           nlev = nlev[priceInd])
 
-  row_interpol <- which(base_pr_lev[brandInd] %% 1 != 0)
+  row_interpol <- which(base_pr_lev[priceHelp] %% 1 != 0)
   base_design <- base_design_close
   col_interpol <- which(base_design_close[1, ] != 0)
-  base_design[, c(col_interpol, col_interpol + 1)] <- c(1 - (base_pr_lev[brandInd] %% 1),
-                                                        (base_pr_lev[brandInd] %% 1))
+  base_design[, c(col_interpol, col_interpol + 1)] <- c(1 - (base_pr_lev[priceHelp] %% 1),
+                                                        (base_pr_lev[priceHelp] %% 1))
 
   scenDUMMY_interpol <- scenDUMMY
   scenDUMMY_interpol[scenInd, priceInd_Dummy] <- base_design

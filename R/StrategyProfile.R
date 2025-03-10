@@ -140,8 +140,8 @@ StrategyProfile <- function(
   StrategyRel <- lapply(
     StrategyAbs,
     function(dt) {
-      dt_base <- helpSimSoC[rep(1, nrow(dt))]
-      dt - dt_base
+      dt_base <- helpSimSoC[rep(1, nrow(dt)), ]
+      data.table(dt - dt_base)
     })
 
   attLabel_help <- att_List[which(scenario[scenInd, ] != 0)]
@@ -153,6 +153,7 @@ StrategyProfile <- function(
                                             Level = unlist(attLabel_help),
                                             Absolute = unlist(lapply(StrategyAbs,
                                                                      function(dt) {
+
                                                                        dt[, scenInd, with = FALSE]
                                                                      })),
                                             Relative = unlist(lapply(StrategyRel,
