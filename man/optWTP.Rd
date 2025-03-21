@@ -8,6 +8,7 @@ optWTP(
   pr,
   prices,
   baseSim,
+  scenWTP_DUMMY,
   scenWTP,
   priceInd,
   priceInd_Dummy,
@@ -28,7 +29,9 @@ e.g. the part from from \code{\link{VD.read_def}}}
 
 \item{baseSim}{A numeric value containing the preference share for the reference scenario for the WTP}
 
-\item{scenWTP}{A matrix with the dummy coded scenario (\code{scenDUMMY_WTP})}
+\item{scenWTP_DUMMY}{A matrix with the dummy coded scenario (\code{scenDUMMY_WTP})}
+
+\item{scenWTP}{A matrix with the scenario}
 
 \item{priceInd}{A vector with the index values for the brand specific price attributes}
 

@@ -9,7 +9,8 @@
 #' @param prices A list containing the prices for the brand specific price attributes,
 #'               e.g. the part from from \code{\link{VD.read_def}}
 #' @param baseSim A numeric value containing the preference share for the reference scenario for the WTP
-#' @param scenWTP A matrix with the dummy coded scenario (\code{scenDUMMY_WTP})
+#' @param scenWTP_DUMMY A matrix with the dummy coded scenario (\code{scenDUMMY_WTP})
+#' @param scenWTP A matrix with the scenario
 #' @param priceInd A vector with the index values for the brand specific price attributes
 #' @param priceInd_Dummy A vector with the index values for the brand specific price attributes
 #'                       in the dummy coded scenario
@@ -34,6 +35,7 @@
 optWTP <- function(pr,
                    prices,
                    baseSim,
+                   scenWTP_DUMMY,
                    scenWTP,
                    priceInd,
                    priceInd_Dummy,
@@ -46,7 +48,8 @@ optWTP <- function(pr,
                    FC = FALSE) {
   abs(baseSim - VMinR::simWTP(pr = pr,
                               prices = prices,
-                              scenDUMMY_WTP = scenWTP,
+                              scenDUMMY_WTP = scenWTP_DUMMY,
+                              scenario_WTP = scenWTP,
                               priceInd = priceInd,
                               priceInd_Dummy = priceInd_Dummy,
                               nlev = nlev,
