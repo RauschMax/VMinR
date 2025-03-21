@@ -27,11 +27,7 @@
 #' @examples
 #'
 #' \dontrun{
-<<<<<<< HEAD
 #' optWTP(...)
-=======
-#' simWTP(...)
->>>>>>> 340493c8c81305ce027b8e3202cc9e412092055f
 #' }
 #'
 #' @export optWTP
