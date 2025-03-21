@@ -20,7 +20,7 @@
 #' @export BMS.read_def
 BMS.read_def <- function(file) {
   defIN <- readLines(file, skipNul = TRUE)
-
+  defIN <- gsub("\t", " ", defIN)
   # EXTRACT BRAND INFO !--------------------------------------------------------------------------------------------------
   start_brand <- which(defIN == "Brand") + 1
   end_brand <- which(defIN == "Price 1" | defIN == "Price1") - 1

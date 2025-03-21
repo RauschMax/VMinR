@@ -19,7 +19,7 @@ dummy coding via \code{\link{convertSSItoDesign}}}
 
 \item{FC}{A boolean variable indicating if first choice simulation should be
 used (\code{FALSE} indicates preference share simulation) - default
-\code{TRUE}}
+\code{FALSE}}
 
 \item{dummy}{A boolean variable indicating if the design file needs to be
 dummy-coded using \code{\link{convertSSItoDesign}}. - default \code{TRUE}}
