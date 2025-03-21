@@ -104,10 +104,12 @@ StrategyProfile <- function(
                                                   pLevHelp <- pHelp[pHelp != 0]
 
                                                   out[scenInd, i] <- j
-                                                  if (i == brandAtt) {
-                                                    out[scenInd, priceInd[which(pHelp == 1)]] <- 0
-                                                    out[scenInd, priceInd[j]] <- ifelse(which(pHelp == 1) == j,
-                                                                                        pLevHelp, priceDefault[j])
+                                                  if (!is.null(brandAtt)) {
+                                                    if (i == brandAtt) {
+                                                      out[scenInd, priceInd[which(pHelp == 1)]] <- 0
+                                                      out[scenInd, priceInd[j]] <- ifelse(which(pHelp == 1) == j,
+                                                                                          pLevHelp, priceDefault[j])
+                                                    }
                                                   }
                                                   out
                                                 })
@@ -141,7 +143,7 @@ StrategyProfile <- function(
     StrategyAbs,
     function(dt) {
       dt_base <- helpSimSoC[rep(1, nrow(dt)), ]
-      data.table(dt - dt_base)
+      data.table::data.table(dt - dt_base)
     })
 
   attLabel_help <- att_List[which(scenario[scenInd, ] != 0)]

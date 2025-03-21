@@ -29,6 +29,7 @@
 #' @export VD.read_def
 VD.read_def <- function(file, nlev = NULL) {
   def <- readLines(file, skipNul = TRUE)
+  def <- gsub("\t", " ", def)
   def <- def[def != ""]
 
   defHelp <- def[2:(grep("^[[]", def)[2] - 1)]

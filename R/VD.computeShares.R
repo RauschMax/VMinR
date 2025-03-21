@@ -16,7 +16,7 @@
 #' @param weight A vector with the weights (one per respondent)
 #' @param FC A boolean variable indicating if first choice simulation should be
 #' used (\code{FALSE} indicates preference share simulation) - default
-#' \code{TRUE}
+#' \code{FALSE}
 #' @param dummy A boolean variable indicating if the design file needs to be
 #' dummy-coded using \code{\link{convertSSItoDesign}}. - default \code{TRUE}
 #' @return A list including elements \item{meanShares}{aggregated shares
@@ -39,7 +39,13 @@
 #' round(sim_BaseR$meanShares, 3)
 #'
 #' @export VD.computeShares
-VD.computeShares <- function(design, utils, nlev, weight = NULL, FC = FALSE, dummy = TRUE) {
+VD.computeShares <- function(
+    design,
+    utils,
+    nlev,
+    weight = NULL,
+    FC = FALSE,
+    dummy = TRUE) {
   if (!dummy) dummy_design <- as.matrix(convertSSItoDesign(design, nlev = nlev))
   if (dummy) dummy_design <- design
 

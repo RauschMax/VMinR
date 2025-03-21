@@ -24,40 +24,41 @@ BMS.read_batchfile <- function(file) {
 
   # Scenario Labels
   helpScenNames <- openxlsx::read.xlsx(file,
-                                       sheetName = "Scenarios",
-                                       rowIndex = 5,
-                                       header = FALSE)
-  scenNames <- unlist(helpScenNames[, -(1:2)])
+                                       sheet = "Scenarios",
+                                       rows = 5,
+                                       colNames = FALSE)
+  # scenNames <- unlist(helpScenNames[, -(1:2)])
+  scenNames <- unlist(helpScenNames[, -1])
   scenNames <- gsub("\n", " ", scenNames[!is.na(scenNames)])
 
   # Scenario Cluster
   helpScenClustering <- openxlsx::read.xlsx(file,
-                                            sheetName = "Scenarios",
-                                            rowIndex = 7,
-                                            header = FALSE)
+                                            sheet = "Scenarios",
+                                            rows = 7,
+                                            colNames = FALSE)
   scenCluster <- unlist(helpScenClustering[, -(1:2)])
   scenCluster <- scenCluster[!is.na(scenCluster)]
 
   # Scenario Segments
   helpScenSegment1 <- openxlsx::read.xlsx(file,
-                                          sheetName = "Scenarios",
-                                          rowIndex = 10,
-                                          header = FALSE)
+                                          sheet = "Scenarios",
+                                          rows = 10,
+                                          colNames = FALSE)
   scenSegment <- unlist(helpScenSegment1)
   scenSegment <- scenSegment[!is.na(scenSegment)]
 
   helpScenSegment2 <- openxlsx::read.xlsx(file,
-                                          sheetName = "Scenarios",
-                                          rowIndex = 12,
-                                          header = FALSE)
+                                          sheet = "Scenarios",
+                                          rows = 12,
+                                          colNames = FALSE)
   scenSegmentLevel <- unlist(helpScenSegment2[, -1])
   scenSegmentLevel <- scenSegmentLevel[!is.na(scenSegmentLevel)]
 
   # Scenario Weight
   helpScenWeight <- openxlsx::read.xlsx(file,
-                                        sheetName = "Scenarios",
-                                        rowIndex = 3,
-                                        header = FALSE)
+                                        sheet = "Scenarios",
+                                        rows = 3,
+                                        colNames = FALSE)
   scenWeight <- unlist(helpScenWeight)[2]
 
   # check
@@ -77,9 +78,9 @@ BMS.read_batchfile <- function(file) {
 
   # prices
   helpPrices <- openxlsx::read.xlsx(file,
-                                    sheetName = "Products & Prices",
+                                    sheet = "Products & Prices",
                                     startRow = 7,
-                                    header = TRUE)
+                                    colNames = TRUE)
   # helpPrices <- helpPrices[, mget(grep("Price", names(helpPrices), value = TRUE))]
   helpPrices <- helpPrices[, grep("Price", names(helpPrices))]
 
@@ -93,16 +94,16 @@ BMS.read_batchfile <- function(file) {
 
   # cluster data.table
   cluster_DT <- data.table::data.table(openxlsx::read.xlsx(file,
-                                                           sheetName = "Cluster",
+                                                           sheet = "Cluster",
                                                            startRow = 5,
-                                                           header = TRUE))
+                                                           colNames = TRUE))
   cluster_DT
 
   # segment list
   helpSegments <- openxlsx::read.xlsx(file,
-                                      sheetName = "Segments",
+                                      sheet = "Segments",
                                       startRow = 5,
-                                      header = TRUE)
+                                      colNames = TRUE)
   helpSegments <- data.frame(helpSegments[, grep("^[^N]", names(helpSegments))])
 
   segment_list <- lapply(helpSegments,
@@ -117,9 +118,9 @@ BMS.read_batchfile <- function(file) {
 
   # scenarios
   scenario_DT <- openxlsx::read.xlsx(file,
-                                     sheetName = "Scenarios",
+                                     sheet = "Scenarios",
                                      startRow = 14,
-                                     header = TRUE)
+                                     colNames = TRUE)
 
   scenario_DT[, grep("Prices", names(scenario_DT))] <- sapply(scenario_DT[, grep("Prices",
                                                                                  names(scenario_DT))],
