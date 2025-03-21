@@ -60,7 +60,7 @@ Function used as an input for optim to calculate simulation based WTP
 \examples{
 
 \dontrun{
-simWTP(...)
+optWTP(...)
 }
 
 }
