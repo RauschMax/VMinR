@@ -2,8 +2,7 @@
 
 #' Import BMS Pricer data and definitions
 #'
-#' Imports the dat/def files for a BMS Pricer study and extracts the relevant
-#' information.
+#' Imports the dat/def files for a BMS Pricer study and extracts the relevant information.
 #'
 #'
 #' @param dat_file A string value with the path to the DAT file to import.
@@ -34,7 +33,7 @@
 #' str(beer_data)
 #' }
 #'
-#' @export get_PricerData
+#' @export BMS.get_PricerData
 BMS.get_PricerData <- function(dat_file = NULL, def_file = NULL, none = TRUE) {
 
   if (is.null(dat_file)) {
@@ -100,7 +99,7 @@ BMS.get_PricerData <- function(dat_file = NULL, def_file = NULL, none = TRUE) {
                  seg = seg_dat,
                  weight = weight,
                  def = def,
-                 priceList = def$priceList,
+                 priceList = def$prices,
                  SKUs = def$brands,
                  nlev = nlev,
                  ID = dat[, 1]))
