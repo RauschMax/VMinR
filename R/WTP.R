@@ -112,7 +112,7 @@ WTP <- function(
           # l2 <- 2
           scenHelp <- WTP_Help[[l1]][[l2]]
 
-          priceInterval_help <- which(scenHelp[scenInd, priceInd] != 0)
+          priceInterval_help <- which(scenHelp[scenIndex, priceIndex] != 0)
 
           opt <- stats::optimize(VMinR::optWTP,
                                  prices = prices,
@@ -134,7 +134,8 @@ WTP <- function(
           opt$minimum
         })
 
-      data.table::data.table(Att = names(WTP_Help)[l1],
+      data.table::data.table(AttInd = l1,
+                             Att = names(WTP_Help)[l1],
                              Level = names(WTP_Help[[l1]]),
                              WTP = wtp_att)
     })
@@ -147,7 +148,7 @@ WTP <- function(
   WTP_DT[, delta := round(WTP - priceBase_WTP, 2)]
   WTP_DT[, WTP := round(WTP, 2)]
   WTP_DT[!(AttInd %in% c(priceIndex, brandAttribute)),
-         exceed := (WTP %in% range(prices[[scenInd]])) * sign(delta)]
+         exceed := (WTP %in% range(prices[[scenIndex]])) * sign(delta)]
   WTP_DT
 
   invisible(list(WTP_List = WTP_List,
