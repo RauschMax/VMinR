@@ -107,7 +107,7 @@ StrategyProfile <- function(
                                                   if (!is.null(brandAtt)) {
                                                     if (i == brandAtt) {
                                                       out[scenInd, priceInd[which(pHelp == 1)]] <- 0
-                                                      out[scenInd, priceInd[j]] <- ifelse(which(pHelp == 1) == j,
+                                                      out[scenInd, priceInd[j]] <- ifelse(which(pHelp != 0) == j,
                                                                                           pLevHelp, priceDefault[j])
                                                     }
                                                   }
