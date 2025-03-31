@@ -12,15 +12,13 @@ install.packages(c('devtools', 'git2r'))
 library(devtools)
 library(git2r)
 creds <- cred_user_pass('<KT GIT USERNAME>', '<KT GIT PASSWORD>')
-install_git('https://kantarware.visualstudio.com/KT-BeastRepo/_git/VMinR', credentials = creds)
+devtools::install_github("https://github.com/RauschMax/VMinR")
 ```
 
 ## Functionality
 The package currently contains basic import and simulation functions for ValueDriver/ValuePricer dat/def-files. 
 It also contains some basic import functions for the most often used Sawtooth files. 
 Apart from that functions to create a heatmap for ValuePricer studies is included.
-
-For details please refer to `VMinR.pdf` in  [VMinR_test/doc](https://kantarware.visualstudio.com/TNS-AnalyticsDE-VMTools/_git/VMinR?path=%2Fdoc)
 
 ### ValueDriver
 * get_DriverData
