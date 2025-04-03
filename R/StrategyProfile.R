@@ -9,11 +9,15 @@
 #' @param att_List A list containing the attributes and levels, e.g. from \code{\link{VD.read_def}}
 #' @param utils_mat A matrix containing the utilities
 #' @param scenInd An integer that indicates the scenario for which the Strategy Profile should be calculated
-#' @param brandAtt An integer indicating the brand attribute in case of brand specific prices
-#' @param priceInd A vector with the index values for the brand specific price attributes.
-#' If \code{NULL} the respective prices will be determined from the \code{att_List}
-#' @param priceDefault A vector with the default price levels for each brand specific price attribute.
-#' Default value is first level for all if \code{NULL}.
+#' @param asdRules A list with asd rules
+#'   \describe{
+#'     \item{baseAtt}{base attribute for asd rule}
+#'     \item{baseLev}{level of base attribute}
+#'     \item{asdAtt}{asd attributes. Index values of th eattributes that are excluded with th ebase attribute}
+#'     }
+#' @param defaultLev A integer or vector with same nength as number of asd attributes with the default level
+#'                   for asd attributes attribute.
+#'                   Default value is first level for all if \code{NULL}.
 #' @return A list including elements
 #'   \item{Sim_Scen}{results of \code{\link{VD.computeShares}}} for \code{scenario}
 #'   \item{Sim_DT}{data.table with mean share of choice}
@@ -42,10 +46,9 @@
 #'   scenario = scenario,
 #'   att_List = defIN$att_List,
 #'   utils_mat = utils_mat,
-#'   scenInd = 1,
-#'   brandAtt = 2,
-#'   priceInd = grep("^Price", names(defIN$att_List)),
-#'   priceDefault = rep(1, length(priceInd)))
+#'   scenInd = selConc,
+#'   asdRules = asd_rules,
+#'   defaultLev = selPrice)
 #'
 #' SP_Test
 #' }
@@ -56,29 +59,52 @@ StrategyProfile <- function(
     att_List,
     utils_mat,
     scenInd = 1,
-    brandAtt = 1,
-    priceInd = NULL,
-    priceDefault = NULL) {
+    asdRules = NULL,
+    defaultLev = NULL) {
   if (is.null(scenario)) stop("You need to provide a scenario!")
   if (is.null(att_List)) stop("You need to provide a att_List (e.g. from VD.read_def)!")
   if (is.null(utils_mat)) stop("You need to provide a utility matrix!")
-  if (is.null(is.null(priceInd) &
-              length(grep("^Price",
-                          names(att_List))) == 0)) stop("You need to provide index values for the price attribute!")
-
-  if (is.null(priceInd)) {
-    priceInd <- grep("^Price", names(att_List))
-  }
-
-  if (length(brandAtt) > 1) stop("You can only provide one brand attribute!")
+  if (is.null(asdRules)) cat("no ASD rules provied.\n")
   if (length(scenInd) > 1) stop("You can only provide one scenario!")
 
+  nlev <- sapply(att_List, length)
 
-  if (is.null(priceDefault)) {
-    priceDefault <- rep(1, length(priceInd))
+  asdConds <- lapply(asdRules,
+                     function(x) {
+                       x$asdAtt
+                     })
+
+  asdAttsDom <- t(sapply(asdRules,
+                         function(x) {
+                           cbind(x$baseAtt,
+                                 x$baseLev)
+                         }))
+
+  asdAttsCond <- sort(unique(unlist(asdConds)))
+
+  if (is.null(defaultLev)) defaultLev <- 1
+
+  if (length(defaultLev) > 1 &
+      length(defaultLev) != length(asdAttsCond)) {
+    cat("Length of asd rules and default values do not align.\n Values set to 1\n")
+    defaultLev <- 1
   }
 
-  nlev <- sapply(att_List, length)
+  if (any(nlev[asdAttsCond] < defaultLev)) stop("Default values out of bounds (defaultLev > nLev)!")
+
+  asdDefault <- lapply(asdConds,
+                       function(x) {
+                         # x <- asdConds[[1]]
+                         helpVec <- rep(as.numeric(NA),
+                                        max(asdAttsCond))
+                         helpVec[asdAttsCond] <- defaultLev
+                         helpVec[x] <- 0
+                         helpVec[!is.na(helpVec)]
+                       })
+
+  if (is.null(defaultLev)) {
+    defaultLev <- 1
+  }
 
   # simulate scenario shares
   Sim_Scen <- VD.computeShares(design = scenario,
@@ -94,23 +120,23 @@ StrategyProfile <- function(
   # define helper for Strategy Profile scenarios
   stratHelp_List <- lapply(which(scenario[scenInd, ] != 0),
                            function(i) {
-                             # i <- 2
+                             # i <- 1
                              scenList <- lapply(sequence(nlev[i]),
                                                 function(j) {
                                                   # j <- 1
                                                   out <- scenario
-
-                                                  pHelp <- out[scenInd, priceInd]
-                                                  pLevHelp <- pHelp[pHelp != 0]
-
                                                   out[scenInd, i] <- j
-                                                  if (!is.null(brandAtt)) {
-                                                    if (i == brandAtt) {
-                                                      out[scenInd, priceInd[which(pHelp == 1)]] <- 0
-                                                      out[scenInd, priceInd[j]] <- ifelse(which(pHelp != 0) == j,
-                                                                                          pLevHelp, priceDefault[j])
+
+                                                  if (!is.null(asdRules)) {
+                                                    if (i %in% asdAttsDom[, 1]) {
+                                                      if (j %in% asdAttsDom[, 2]) {
+                                                        if (scenario[scenInd, i] != j) {
+                                                          out[scenInd, asdAttsCond] <- asdDefault[[j]]
+                                                        }
+                                                      }
                                                     }
                                                   }
+
                                                   out
                                                 })
                              names(scenList) <- att_List[[i]]
@@ -127,11 +153,11 @@ StrategyProfile <- function(
           l1,
           function(scen) {
             data.table::data.table(t(VD.computeShares(design = scen,
-                                          utils = utils_mat,
-                                          nlev = c(nlev, 1),
-                                          weight = NULL,
-                                          FC = FALSE,
-                                          dummy = FALSE)$meanShares))
+                                                      utils = utils_mat,
+                                                      nlev = c(nlev, 1),
+                                                      weight = NULL,
+                                                      FC = FALSE,
+                                                      dummy = FALSE)$meanShares))
           }))
     })
 
