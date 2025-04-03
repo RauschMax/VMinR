@@ -1,7 +1,7 @@
 Package: VMinR
 Type: Package
 Title: The package contains a set of functions which are required in a conjoint study
-Version: 1.4.2
+Version: 1.4.3
 Author: Maximilian Rausch
 Maintainer: Maximilian Rausch <maximilian.rausch@bms-net.de>
 Description: The package contains a set of functions which are required in a conjoint study.

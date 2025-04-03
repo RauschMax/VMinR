@@ -9,9 +9,8 @@ StrategyProfile(
   att_List,
   utils_mat,
   scenInd = 1,
-  brandAtt = 1,
-  priceInd = NULL,
-  priceDefault = NULL
+  asdRules = NULL,
+  defaultLev = NULL
 )
 }
 \arguments{
@@ -23,12 +22,15 @@ StrategyProfile(
 
 \item{scenInd}{An integer that indicates the scenario for which the Strategy Profile should be calculated}
 
-\item{brandAtt}{An integer indicating the brand attribute in case of brand specific prices}
+\item{asdRules}{A list with asd rules
+\describe{
+  \item{baseAtt}{base attribute for asd rule}
+  \item{baseLev}{level of base attribute}
+  \item{asdAtt}{asd attributes. Index values of th eattributes that are excluded with th ebase attribute}
+  }}
 
-\item{priceInd}{A vector with the index values for the brand specific price attributes.
-If \code{NULL} the respective prices will be determined from the \code{att_List}}
-
-\item{priceDefault}{A vector with the default price levels for each brand specific price attribute.
+\item{defaultLev}{A integer or vector with same nength as number of asd attributes with the default level
+for asd attributes attribute.
 Default value is first level for all if \code{NULL}.}
 }
 \value{
@@ -63,10 +65,9 @@ SP_Test <- StrategyProfile(
   scenario = scenario,
   att_List = defIN$att_List,
   utils_mat = utils_mat,
-  scenInd = 1,
-  brandAtt = 2,
-  priceInd = grep("^Price", names(defIN$att_List)),
-  priceDefault = rep(1, length(priceInd)))
+  scenInd = selConc,
+  asdRules = asd_rules,
+  defaultLev = selPrice)
 
 SP_Test
 }
