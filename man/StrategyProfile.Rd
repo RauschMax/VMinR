@@ -10,7 +10,8 @@ StrategyProfile(
   utils_mat,
   scenInd = 1,
   asdRules = NULL,
-  defaultLev = NULL
+  defaultLev = NULL,
+  SimModel = "SoC"
 )
 }
 \arguments{
@@ -32,6 +33,12 @@ StrategyProfile(
 \item{defaultLev}{A integer or vector with same nength as number of asd attributes with the default level
 for asd attributes attribute.
 Default value is first level for all if \code{NULL}.}
+
+\item{SimModel}{A character value indicating the Simulation Model.
+\describe{
+  \item{SoC}{Share of Choice - Preference Share (Default)}
+  \item{FC}{First Choice}
+  }}
 }
 \value{
 A list including elements
@@ -67,7 +74,8 @@ SP_Test <- StrategyProfile(
   utils_mat = utils_mat,
   scenInd = selConc,
   asdRules = asd_rules,
-  defaultLev = selPrice)
+  defaultLev = selPrice,
+  SimModel = "SoC")
 
 SP_Test
 }

@@ -18,6 +18,11 @@
 #' @param defaultLev A integer or vector with same nength as number of asd attributes with the default level
 #'                   for asd attributes attribute.
 #'                   Default value is first level for all if \code{NULL}.
+#' @param SimModel A character value indicating the Simulation Model.
+#'   \describe{
+#'     \item{SoC}{Share of Choice - Preference Share (Default)}
+#'     \item{FC}{First Choice}
+#'     }
 #' @return A list including elements
 #'   \item{Sim_Scen}{results of \code{\link{VD.computeShares}}} for \code{scenario}
 #'   \item{Sim_DT}{data.table with mean share of choice}
@@ -48,7 +53,8 @@
 #'   utils_mat = utils_mat,
 #'   scenInd = selConc,
 #'   asdRules = asd_rules,
-#'   defaultLev = selPrice)
+#'   defaultLev = selPrice,
+#'   SimModel = "SoC")
 #'
 #' SP_Test
 #' }
@@ -60,12 +66,14 @@ StrategyProfile <- function(
     utils_mat,
     scenInd = 1,
     asdRules = NULL,
-    defaultLev = NULL) {
+    defaultLev = NULL,
+    SimModel = "SoC") {
   if (is.null(scenario)) stop("You need to provide a scenario!")
   if (is.null(att_List)) stop("You need to provide a att_List (e.g. from VD.read_def)!")
   if (is.null(utils_mat)) stop("You need to provide a utility matrix!")
   if (is.null(asdRules)) cat("no ASD rules provied.\n")
   if (length(scenInd) > 1) stop("You can only provide one scenario!")
+  if (!(SimModel %in% c("SoC", "FC", "Preference"))) cat("Unclear Simulation Model. Simulation Model set to SoC.\n")
 
   nlev <- sapply(att_List, length)
 
@@ -111,7 +119,7 @@ StrategyProfile <- function(
                                utils = utils_mat,
                                nlev = c(nlev, 1),
                                weight = NULL,
-                               FC = FALSE,
+                               FC = SimModel == "FC",
                                dummy = FALSE)
 
   Sim_DT <- data.table::data.table(Conc = paste0("Conc_", 1:length(Sim_Scen$meanShares)),
@@ -156,7 +164,7 @@ StrategyProfile <- function(
                                                       utils = utils_mat,
                                                       nlev = c(nlev, 1),
                                                       weight = NULL,
-                                                      FC = FALSE,
+                                                      FC = SimModel == "FC",
                                                       dummy = FALSE)$meanShares))
           }))
     })
